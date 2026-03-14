@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AI Learn Hub (Offline)</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #e0e0e0;
+            padding: 2rem 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(10px);
+            margin: auto;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-header h1 {
+            color: #00d4ff;
+            margin: 0;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .signup-header p {
+            color: #888;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 12px;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signup-button:hover {
+            background: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .links a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            color: #00ff88;
+        }
+
+        .error-message {
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid #ff6464;
+            color: #ff9898;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #88ffbb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 13px;
+            display: none;
+        }
+
+        .requirements {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 1.5rem;
+            font-size: 12px;
+            color: #88ccff;
+        }
+
+        .requirements li {
+            margin: 4px 0;
+        }
+
+        .requirements strong {
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <div class="offline-badge">✓ 100% Offline</div>
+            <h1>AI Learn Hub</h1>
+            <p>Create Your Account</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="signup-button">✓ Create Account</button>
+        </form>
+
+        <div class="links">
+            <p>Already have an account? <a href="login.html">Login Here</a></p>
+        </div>
+
+        <div class="requirements">
+            <strong>Password Requirements:</strong>
+            <ul style="margin: 8px 0; padding-left: 20px;">
+                <li>✓ At least 6 characters</li>
+                <li>✓ Match both password fields</li>
+                <li>✓ Valid email format required</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                errorMessage.textContent = '✗ Passwords do not match';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            const result = app.signup(email, password, fullName);
+            
+            if (result.success) {
+                successMessage.textContent = '✓ ' + result.message;
+                successMessage.style.display = 'block';
+                
+                signupForm.reset();
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } else {
+                errorMessage.textContent = '✗ ' + result.message;
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

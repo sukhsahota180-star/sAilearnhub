@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deep Learning Course - Explore Neural Networks, CNN, RNN, and advanced AI architectures. Master deep learning techniques.">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, deep neural networks, computer vision">
+    <meta property="og:title" content="Deep Learning - AI Learn Hub">
+    <meta property="og:description" content="Exploring Neural Networks and Advanced AI Architectures.">
+    <meta property="og:type" content="course">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect fill='%2300d4ff' width='200' height='200'/><text x='50%' y='50%' font-size='100' text-anchor='middle' dy='.3em' fill='white' font-family='Arial'>🌐</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300d4ff' width='100' height='100'/><text x='50' y='70' font-size='80' text-anchor='middle' fill='white' font-family='Arial'>🤖</text></svg>">
+    <title>Deep Learning - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        body { padding-top: 80px; }
+        .topic-hero { background: linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(0, 20, 40, 0.92)) !important; padding: 120px 20px 80px !important; text-align: center; position: relative; border-bottom: 2px solid rgba(0, 212, 255, 0.3); overflow: hidden; }
+        .topic-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%); animation: pulse 4s ease-in-out infinite alternate; z-index: 0; }
+        @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+        .topic-hero .container { position: relative; z-index: 1; }
+        .topic-hero h1 { font-size: clamp(2rem, 4vw, 3.5rem) !important; color: #00d4ff !important; text-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.2) !important; margin-bottom: 20px; animation: slideDown 0.8s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .topic-hero p { font-size: 1.2rem; color: #e0e0e0 !important; margin: 0 !important; line-height: 1.8; }
+        .content { background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(15, 15, 25, 0.95)); padding: 60px 20px !important; }
+        .topic-content { max-width: 900px; margin: 0 auto; }
+        .topic-content h2 { font-size: 2rem; color: #00d4ff !important; text-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important; margin: 50px 0 25px !important; padding-bottom: 15px; border-bottom: 2px solid rgba(0, 212, 255, 0.2); position: relative; }
+        .topic-content h2::after { content: ''; position: absolute; bottom: -2px; left: 0; height: 2px; width: 80px; background: linear-gradient(90deg, #00d4ff, #00ff88); box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); }
+        .topic-content h3 { color: #00ff88 !important; text-shadow: 0 0 10px rgba(0, 255, 136, 0.2) !important; font-size: 1.4rem; margin: 20px 0 15px !important; }
+        .topic-content p { color: #d0d0d0 !important; font-size: 1rem; line-height: 1.8 !important; margin: 15px 0 !important; }
+        .topic-content ul, .topic-content ol { color: #d0d0d0 !important; margin: 15px 0 15px 20px !important; }
+        .topic-content li { margin: 10px 0 !important; line-height: 1.6; }
+        .info-card { background: rgba(0, 212, 255, 0.08) !important; border-left: 4px solid #00d4ff !important; border-radius: 10px !important; padding: 25px !important; margin: 30px 0 !important; box-shadow: 0 0 20px rgba(0, 212, 255, 0.1) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; }
+        .info-card:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.25) !important; transform: translateX(5px); }
+        .type-card, .ml-card, .comp-item, .reg-class-card, .fitting-card, .example-card, .use-case-card { background: linear-gradient(135deg, rgba(20, 40, 70, 0.95), rgba(15, 30, 55, 0.95)) !important; border: 1px solid rgba(0, 212, 255, 0.2) !important; border-radius: 15px !important; padding: 30px !important; margin: 20px 0 !important; box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15) !important; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .type-card::before, .ml-card::before, .comp-item::before, .reg-class-card::before, .fitting-card::before, .example-card::before, .use-case-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05)); opacity: 0; transition: opacity 0.3s; z-index: 0; }
+        .type-card:hover::before, .ml-card:hover::before, .comp-item:hover::before, .reg-class-card:hover::before, .fitting-card:hover::before, .example-card:hover::before, .use-case-card:hover::before { opacity: 1; }
+        .type-card:hover, .ml-card:hover, .comp-item:hover, .reg-class-card:hover, .fitting-card:hover, .example-card:hover, .use-case-card:hover { transform: translateY(-8px); box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3) !important; border-color: rgba(0, 212, 255, 0.5) !important; }
+        .type-card > *, .ml-card > *, .comp-item > *, .reg-class-card > *, .fitting-card > *, .example-card > *, .use-case-card > * { position: relative; z-index: 1; }
+        .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .comparison { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .content-image { border-radius: 15px !important; box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; margin: 30px 0 !important; }
+        .content-image:hover { box-shadow: 0 15px 50px rgba(0, 212, 255, 0.35) !important; transform: translateY(-5px); }
+        @media (max-width: 768px) { .topic-hero { padding: 80px 15px 60px !important; } .topic-hero h1 { font-size: 2rem !important; } .topic-content h2 { font-size: 1.5rem; } .topic-content h3 { font-size: 1.1rem; } .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="Ai..html" style="color: white; text-decoration: none;"><h1>AI Learn Hub</h1></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="Ai..html#home">Home</a></li>
+                <li><a href="Ai..html#about">About</a></li>
+                <li><a href="Ai..html#courses">Courses</a></li>
+                <li><a href="Ai..html#testimonials">Testimonials</a></li>
+                <li><a href="Ai..html#contact">Contact</a></li>
+                <li><a href="../login.html" class="auth-btn login-btn">Login</a></li>
+                <li><a href="../signup.html" class="auth-btn signup-btn">Sign Up</a></li>
+                <li><a href="../admin-panel.html" class="auth-btn admin-btn" title="Admin Panel">👨‍💼 Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="topic-hero deep-learning-bg">
+        <div class="container">
+            <h1>Deep Learning</h1>
+            <p>Exploring Neural Networks and Advanced AI Architectures</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="topic-content">
+                <h2>Neural Networks Basics</h2>
+                <p>Deep Learning is a subset of Machine Learning that uses artificial neural networks with multiple layers to model complex patterns in data. Inspired by the human brain's structure, these networks can learn hierarchical representations of data.</p>
+
+                <div class="nn-basics">
+                    <h3>Key Components of Neural Networks</h3>
+                    <div class="component-grid">
+                        <div class="component">
+                            <h4>🧠 Neurons</h4>
+                            <p>Basic units that receive inputs, apply weights, and produce outputs through activation functions.</p>
+                        </div>
+                        <div class="component">
+                            <h4>Layers</h4>
+                            <p>Input layer, hidden layers, and output layer. Deep networks have many hidden layers.</p>
+                        </div>
+                        <div class="component">
+                            <h4>Weights & Biases</h4>
+                            <p>Parameters that are learned during training to minimize prediction errors.</p>
+                        </div>
+                        <div class="component">
+                            <h4>🔥 Activation Functions</h4>
+                            <p>Non-linear functions like ReLU, Sigmoid, Tanh that introduce non-linearity.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>How Neural Networks Learn</h3>
+                <ol>
+                    <li><strong>Forward Propagation:</strong> Input data flows through the network to produce predictions</li>
+                    <li><strong>Loss Calculation:</strong> Compare predictions with actual values using loss functions</li>
+                    <li><strong>Backpropagation:</strong> Calculate gradients of the loss with respect to weights</li>
+                    <li><strong>Optimization:</strong> Update weights using algorithms like Gradient Descent</li>
+                </ol>
+
+                <h2>CNN (Convolutional Neural Networks)</h2>
+                <p>CNNs are specialized neural networks designed for processing grid-like data, particularly effective for image recognition and computer vision tasks.</p>
+
+                <div class="cnn-components">
+                    <div class="cnn-card">
+                        <h3>🔍 Convolution Layer</h3>
+                        <p>Applies filters to input data to extract features like edges, textures, and patterns.</p>
+                        <p><strong>Key Parameters:</strong> Kernel size, stride, padding</p>
+                    </div>
+                    <div class="cnn-card">
+                        <h3>🏊 Pooling Layer</h3>
+                        <p>Reduces spatial dimensions while preserving important features. Common types: Max Pooling, Average Pooling.</p>
+                        <p><strong>Benefits:</strong> Reduces computation, prevents overfitting</p>
+                    </div>
+                    <div class="cnn-card">
+                        <h3>🔗 Fully Connected Layer</h3>
+                        <p>Traditional neural network layers that perform classification based on extracted features.</p>
+                        <p><strong>Role:</strong> Combines features for final predictions</p>
+                    </div>
+                </div>
+
+                <h3>Famous CNN Architectures</h3>
+                <div class="architectures">
+                    <div class="arch-card">
+                        <h3>LeNet-5 (1998)</h3>
+                        <p>First successful CNN for digit recognition. 7 layers total.</p>
+                    </div>
+                    <div class="arch-card">
+                        <h3>AlexNet (2012)</h3>
+                        <p>Won ImageNet competition. Introduced ReLU and dropout.</p>
+                    </div>
+                    <div class="arch-card">
+                        <h3>VGGNet (2014)</h3>
+                        <p>Very deep network (16-19 layers) with small 3x3 filters.</p>
+                    </div>
+                    <div class="arch-card">
+                        <h3>ResNet (2015)</h3>
+                        <p>Residual connections solve vanishing gradient problem. Up to 152 layers.</p>
+                    </div>
+                    <div class="arch-card">
+                        <h3>Inception (GoogLeNet)</h3>
+                        <p>Multiple filter sizes in parallel. Efficient computation.</p>
+                    </div>
+                </div>
+
+                <h2>RNN (Recurrent Neural Networks)</h2>
+                <p>RNNs are designed for sequential data processing, maintaining internal state (memory) to handle dependencies between elements in sequences.</p>
+
+                <div class="rnn-explanation">
+                    <h3>Why RNNs?</h3>
+                    <p>Traditional neural networks treat inputs as independent, but many real-world data have temporal dependencies:</p>
+                    <ul>
+                        <li>Language: Words depend on previous words</li>
+                        <li>Time series: Future values depend on past values</li>
+                        <li>Video: Frames are related in sequence</li>
+                    </ul>
+                </div>
+
+                <h3>RNN Variants</h3>
+                <div class="rnn-variants">
+                    <div class="variant-card">
+                        <h3>🔄 Vanilla RNN</h3>
+                        <p>Basic RNN with simple recurrent connections. Suffers from vanishing gradient problem.</p>
+                    </div>
+                    <div class="variant-card">
+                        <h3>📏 LSTM (Long Short-Term Memory)</h3>
+                        <p>Introduces gates to control information flow. Can learn long-term dependencies.</p>
+                        <p><strong>Gates:</strong> Forget, Input, Output</p>
+                    </div>
+                    <div class="variant-card">
+                        <h3>🚪 GRU (Gated Recurrent Unit)</h3>
+                        <p>Simplified LSTM with fewer parameters. Reset and Update gates.</p>
+                    </div>
+                    <div class="variant-card">
+                        <h3>⚡ Bidirectional RNN</h3>
+                        <p>Processes sequence in both directions for better context understanding.</p>
+                    </div>
+                </div>
+
+                <h2>Real-World Use Cases</h2>
+                <div class="use-cases">
+                    <div class="use-case-card">
+                        <h3>🖼️ Computer Vision</h3>
+                        <ul>
+                            <li>Image Classification (ResNet, EfficientNet)</li>
+                            <li>Object Detection (YOLO, Faster R-CNN)</li>
+                            <li>Face Recognition (FaceNet)</li>
+                            <li>Medical Image Analysis</li>
+                            <li>Autonomous Vehicles</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>🗣️ Natural Language Processing</h3>
+                        <ul>
+                            <li>Language Translation (Google Translate)</li>
+                            <li>Sentiment Analysis</li>
+                            <li>Text Generation (GPT models)</li>
+                            <li>Question Answering</li>
+                            <li>Speech Recognition (Alexa, Siri)</li>
+                        </ul>
+                    </div>
+                    <div class="use-case-card">
+                        <h3>Other Applications</h3>
+                        <ul>
+                            <li>Time Series Forecasting</li>
+                            <li>Recommendation Systems</li>
+                            <li>Game Playing (AlphaGo)</li>
+                            <li>Drug Discovery</li>
+                            <li>Climate Modeling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Challenges in Deep Learning</h2>
+                <div class="challenges">
+                    <div class="challenge">
+                        <h3>Computational Resources</h3>
+                        <p>Training deep networks requires significant GPU/TPU resources and time.</p>
+                    </div>
+                    <div class="challenge">
+                        <h3>📈 Data Requirements</h3>
+                        <p>Large amounts of labeled data needed for effective training.</p>
+                    </div>
+                    <div class="challenge">
+                        <h3>🔍 Interpretability</h3>
+                        <p>Black-box nature makes it hard to understand model decisions.</p>
+                    </div>
+                    <div class="challenge">
+                        <h3>Overfitting</h3>
+                        <p>Models can memorize training data instead of learning general patterns.</p>
+                    </div>
+                </div>
+
+                <h2>Future Directions</h2>
+                <ul>
+                    <li><strong>Efficient Architectures:</strong> MobileNet, EfficientNet for edge computing</li>
+                    <li><strong>Self-Supervised Learning:</strong> Learning from unlabeled data</li>
+                    <li><strong>Neural Architecture Search:</strong> Automated design of network architectures</li>
+                    <li><strong>Federated Learning:</strong> Privacy-preserving distributed training</li>
+                    <li><strong>Multimodal Learning:</strong> Combining vision, language, and other modalities</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Contact Us: Email: Sukhsahota180@gmail.com | Phone: +91 84375-84541 <br> Follow Us: <a href="https://www.facebook.com/profile.php?id=100044796014349&ref=pl_edit_ig_profile_ac">Facebook</a> | <a href="https://www.instagram.com/the.sukh_7854?igsh=cm1oa2ZvMDdoamlr">Instagram</a> | <a href="https://youtube.com/@alienstudiomusic?si=KybFBiusewkhsCaV">YouTube</a> | &copy; 2025 AI Learn Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="Ai.js"></script>
+
+    <div class="floating-shapes">
+    <nav class="bottom-nav">
+        <a href="Ai..html" class="nav-btn">Home</a>
+        <a href="ai-fundamentals.html" class="nav-btn">AI Fundamentals</a>
+        <a href="machine-learning.html" class="nav-btn">Machine Learning</a>
+        <a href="deep-learning.html" class="nav-btn">Deep Learning</a>
+        <a href="generative-ai.html" class="nav-btn">Generative AI</a>
+        <a href="ai-tools.html" class="nav-btn">AI Tools</a>
+        <a href="ai-projects.html" class="nav-btn">AI Projects</a>
+        <a href="ai-real-world.html" class="nav-btn">AI in Real World</a>
+        <a href="ethics-future-ai.html" class="nav-btn">Ethics & Future</a>
+        <a href="../purchase.html" class="nav-btn">Purchase Courses</a>
+    </nav>
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</body>
+</html>

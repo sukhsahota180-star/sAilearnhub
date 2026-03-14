@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Learn Hub (Offline)</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #e0e0e0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #00d4ff;
+            margin: 0;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #888;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .login-button:hover {
+            background: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .demo-button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .demo-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .links a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            color: #00ff88;
+        }
+
+        .error-message {
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid #ff6464;
+            color: #ff9898;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #88ffbb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 13px;
+            display: none;
+        }
+
+        .demo-credentials {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 1.5rem;
+            font-size: 12px;
+            color: #88ccff;
+        }
+
+        .demo-credentials strong {
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="offline-badge">✓ 100% Offline</div>
+            <h1>AI Learn Hub</h1>
+            <p>Login to Your Account</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="login-button">🔐 Login</button>
+            <button type="button" class="demo-button" onclick="loginDemo()">🎯 Demo Login (Admin)</button>
+        </form>
+
+        <div class="links">
+            <p>Don't have an account? <a href="signup.html">Sign Up Here</a></p>
+        </div>
+
+        <div class="demo-credentials">
+            <strong>Demo Accounts Available:</strong><br>
+            📧 <strong>Admin:</strong> admin@ailearnhub.com<br>
+            🔑 <strong>Password:</strong> admin123<br><br>
+            Or create your own account →
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            const result = app.login(email, password);
+            
+            if (result.success) {
+                successMessage.textContent = '✓ ' + result.message;
+                successMessage.style.display = 'block';
+                
+                setTimeout(() => {
+                    window.location.href = 'landing.html';
+                }, 1000);
+            } else {
+                errorMessage.textContent = '✗ ' + result.message;
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        function loginDemo() {
+            const result = app.login('admin@ailearnhub.com', 'admin123');
+            
+            if (result.success) {
+                successMessage.textContent = '✓ Demo login successful! Redirecting...';
+                successMessage.style.display = 'block';
+                
+                setTimeout(() => {
+                    window.location.href = 'landing.html';
+                }, 1000);
+            } else {
+                errorMessage.textContent = '✗ Demo login failed';
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

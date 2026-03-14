@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin: 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .course-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .course-title {
+            color: #333;
+            margin: 0;
+            font-size: 16px;
+            flex: 1;
+        }
+
+        .course-status {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .course-status.in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .course-status.completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .course-meta {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .course-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-continue {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-continue:hover {
+            background: #5568d3;
+        }
+
+        .btn-view {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-view:hover {
+            background: #e0e0e0;
+        }
+
+        .empty-state {
+            background: white;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE MODE</div>
+
+    <div class="container">
+        <header>
+            <h1>📚 My Courses</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+                <a href="landing.html" class="btn btn-secondary">← Landing</a>
+            </div>
+        </header>
+
+        <!-- Filters -->
+        <div class="filters">
+            <span style="color: #666; font-weight: 600;">Filter by status:</span>
+            <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+            <button class="filter-btn" onclick="filterCourses('in-progress')">In Progress</button>
+            <button class="filter-btn" onclick="filterCourses('completed')">Completed</button>
+        </div>
+
+        <!-- Courses Grid -->
+        <div id="coursesContainer"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        let currentUser = null;
+        let allEnrollments = [];
+        let currentFilter = 'all';
+
+        function initCourses() {
+            // Load demo user (no login required)
+            const users = JSON.parse(localStorage.getItem('ailearn_users')) || [];
+            currentUser = users.find(u => u.email === 'admin@ailearnhub.com') || {
+                id: Date.now(),
+                fullName: 'Demo User',
+                email: 'demo@ailearnhub.com',
+                role: 'student'
+            };
+
+            loadEnrolledCourses();
+        }
+
+        function loadEnrolledCourses() {
+            allEnrollments = app.getAllEnrollments().filter(e => e.userId === currentUser.id);
+            if (allEnrollments.length === 0) {
+                // Add demo enrollments
+                allEnrollments = [
+                    { userId: currentUser.id, courseId: 1, progress: 45, completed: false, enrolledAt: new Date().toISOString() },
+                    { userId: currentUser.id, courseId: 2, progress: 100, completed: true, enrolledAt: new Date().toISOString() },
+                    { userId: currentUser.id, courseId: 4, progress: 20, completed: false, enrolledAt: new Date().toISOString() }
+                ];
+            }
+            renderCourses();
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('coursesContainer');
+            const courses = app.getCourses();
+
+            // Filter enrolled courses
+            const enrolledCourseIds = allEnrollments.map(e => e.courseId);
+            const enrolledCourses = courses.filter(c => enrolledCourseIds.includes(c.id));
+
+            if (enrolledCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>📚 No Courses Yet</h3>
+                        <p>You haven't enrolled in any courses yet. Browse our course catalog to get started!</p>
+                        <a href="purchase.html" class="btn btn-primary">Browse Courses</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Filter by status
+            let filteredCourses = enrolledCourses.filter(course => {
+                const enrollment = allEnrollments.find(e => e.courseId === course.id);
+                
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'in-progress') return enrollment.progress > 0 && !enrollment.completed;
+                if (currentFilter === 'completed') return enrollment.completed;
+                
+                return true;
+            });
+
+            if (filteredCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No courses with this status</h3>
+                        <p>Try adjusting your filter settings.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render courses
+            container.innerHTML = '<div class="courses-grid">' + 
+                filteredCourses.map(course => {
+                    const enrollment = allEnrollments.find(e => e.courseId === course.id);
+                    const progress = enrollment.progress || 0;
+                    const isCompleted = enrollment.completed || progress === 100;
+
+                    let statusBadge = '';
+                    if (isCompleted) {
+                        statusBadge = '<span class="course-status completed">✓ Completed</span>';
+                    } else if (progress > 0) {
+                        statusBadge = '<span class="course-status in-progress">In Progress</span>';
+                    } else {
+                        statusBadge = '<span class="course-status">Not Started</span>';
+                    }
+
+                    return `
+                        <div class="course-card">
+                            <div class="course-image">📖</div>
+                            <div class="course-content">
+                                <div class="course-header">
+                                    <h3 class="course-title">${course.title}</h3>
+                                    ${statusBadge}
+                                </div>
+                                <div class="course-meta">
+                                    <span>⭐ ${course.rating}</span>
+                                    <span>⏱️ ${course.duration || 40}h</span>
+                                    <span>${app.formatPrice(course.price)}</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-label">
+                                        <span>Progress</span>
+                                        <strong>${progress}%</strong>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${progress}%"></div>
+                                    </div>
+                                </div>
+                                <div class="course-actions">
+                                    <button class="btn-continue" onclick="continueCourse(${course.id})">
+                                        ${isCompleted ? '🎓 Completed' : '▶ Continue'}
+                                    </button>
+                                    <button class="btn-view" onclick="viewCourse(${course.id})">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('') +
+            '</div>';
+        }
+
+        function filterCourses(filter) {
+            currentFilter = filter;
+
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            renderCourses();
+        }
+
+        function continueCourse(courseId) {
+            window.location.href = 'course.html?id=' + courseId;
+        }
+
+        function viewCourse(courseId) {
+            window.location.href = 'course.html?id=' + courseId;
+        }
+
+        window.addEventListener('load', initCourses);
+    </script>
+</body>
+</html>

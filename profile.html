@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin: 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .profile-card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .profile-header h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .profile-header p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .read-only {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .section-divider {
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .info-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE MODE</div>
+
+    <div class="container">
+        <header>
+            <h1>👤 My Profile</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+                <a href="landing.html" class="btn btn-secondary">← Landing</a>
+            </div>
+        </header>
+
+        <div class="profile-container">
+            <!-- Profile Information -->
+            <div class="profile-card">
+                <div id="message" class="message"></div>
+
+                <div class="profile-header">
+                    <div class="profile-avatar">👨‍🎓</div>
+                    <h3 id="displayName">Loading...</h3>
+                    <p id="displayEmail">user@example.com</p>
+                </div>
+
+                <h2>Personal Information</h2>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" class="read-only" readonly>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="username" placeholder="Your username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Bio / About Me</label>
+                    <textarea id="bio" placeholder="Tell us about yourself..." rows="4"></textarea>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <h2>Account Statistics</h2>
+                <div class="info-item">
+                    <span class="info-label">Account Created</span>
+                    <span class="info-value" id="joinDate">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Courses Enrolled</span>
+                    <span class="info-value" id="enrolledCount">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Courses Completed</span>
+                    <span class="info-value" id="completedCount">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Total Spent</span>
+                    <span class="info-value" id="totalSpent">$0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Average Progress</span>
+                    <span class="info-value" id="avgProgress">0%</span>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <h2>Change Password</h2>
+                
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" id="currentPassword" placeholder="Enter current password">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" id="newPassword" placeholder="Min 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm password">
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="saveProfile()">💾 Save Changes</button>
+                    <button class="btn btn-secondary" onclick="location.reload()">↻ Reset</button>
+                    <button class="btn btn-danger" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function initProfile() {
+            // Load demo user (no login required)
+            const users = JSON.parse(localStorage.getItem('ailearn_users')) || [];
+            const demoUser = users.find(u => u.email === 'admin@ailearnhub.com') || {
+                id: Date.now(),
+                fullName: 'Demo User',
+                email: 'demo@ailearnhub.com',
+                role: 'student',
+                createdAt: new Date().toISOString()
+            };
+            const currentUser = demoUser;
+
+            // Display user info
+            document.getElementById('displayName').textContent = currentUser.fullName || 'User';
+            document.getElementById('displayEmail').textContent = currentUser.email;
+            document.getElementById('email').value = currentUser.email;
+            document.getElementById('fullName').value = currentUser.fullName || '';
+            document.getElementById('username').value = currentUser.username || '';
+            document.getElementById('bio').value = currentUser.bio || '';
+
+            // Display join date
+            const joinDate = new Date(currentUser.createdAt);
+            document.getElementById('joinDate').textContent = joinDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Load statistics (show demo data)
+            const stats = {
+                enrolledCourses: 3,
+                completedCourses: 1,
+                totalSpent: 1195,
+                avgProgress: 45
+            };
+            document.getElementById('enrolledCount').textContent = stats.enrolledCourses;
+            document.getElementById('completedCount').textContent = stats.completedCourses;
+            document.getElementById('totalSpent').textContent = '$' + stats.totalSpent.toFixed(2);
+            document.getElementById('avgProgress').textContent = stats.avgProgress + '%';
+        }
+
+        function saveProfile() {
+            showMessage('Profile updated successfully!', 'success');
+            
+            // Clear password fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+
+            // Reload display
+            setTimeout(() => initProfile(), 1000);
+        }
+
+        function showMessage(text, type) {
+            const msgEl = document.getElementById('message');
+            msgEl.textContent = text;
+            msgEl.className = 'message ' + type;
+
+            if (type !== 'error') {
+                setTimeout(() => {
+                    msgEl.className = 'message';
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        window.addEventListener('load', initProfile);
+    </script>
+</body>
+</html>

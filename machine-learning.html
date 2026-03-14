@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Machine Learning Course - Master ML concepts, algorithms, and real-world applications. From beginner to advanced techniques.">
+    <meta name="keywords" content="machine learning, ML algorithms, supervised learning, unsupervised learning, neural networks">
+    <meta property="og:title" content="Machine Learning - AI Learn Hub">
+    <meta property="og:description" content="From beginner to advanced ML concepts, algorithms, and applications.">
+    <meta property="og:type" content="course">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect fill='%2300d4ff' width='200' height='200'/><text x='50%' y='50%' font-size='100' text-anchor='middle' dy='.3em' fill='white' font-family='Arial'>⚙️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300d4ff' width='100' height='100'/><text x='50' y='70' font-size='80' text-anchor='middle' fill='white' font-family='Arial'>🤖</text></svg>">
+    <title>Machine Learning - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        body { padding-top: 80px; }
+        .topic-hero { background: linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(0, 20, 40, 0.92)) !important; padding: 120px 20px 80px !important; text-align: center; position: relative; border-bottom: 2px solid rgba(0, 212, 255, 0.3); overflow: hidden; }
+        .topic-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%); animation: pulse 4s ease-in-out infinite alternate; z-index: 0; }
+        @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+        .topic-hero .container { position: relative; z-index: 1; }
+        .topic-hero h1 { font-size: clamp(2rem, 4vw, 3.5rem) !important; color: #00d4ff !important; text-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.2) !important; margin-bottom: 20px; animation: slideDown 0.8s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .topic-hero p { font-size: 1.2rem; color: #e0e0e0 !important; margin: 0 !important; line-height: 1.8; }
+        .content { background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(15, 15, 25, 0.95)); padding: 60px 20px !important; }
+        .topic-content { max-width: 900px; margin: 0 auto; }
+        .topic-content h2 { font-size: 2rem; color: #00d4ff !important; text-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important; margin: 50px 0 25px !important; padding-bottom: 15px; border-bottom: 2px solid rgba(0, 212, 255, 0.2); position: relative; }
+        .topic-content h2::after { content: ''; position: absolute; bottom: -2px; left: 0; height: 2px; width: 80px; background: linear-gradient(90deg, #00d4ff, #00ff88); box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); }
+        .topic-content h3 { color: #00ff88 !important; text-shadow: 0 0 10px rgba(0, 255, 136, 0.2) !important; font-size: 1.4rem; margin: 20px 0 15px !important; }
+        .topic-content p { color: #d0d0d0 !important; font-size: 1rem; line-height: 1.8 !important; margin: 15px 0 !important; }
+        .topic-content ul, .topic-content ol { color: #d0d0d0 !important; margin: 15px 0 15px 20px !important; }
+        .topic-content li { margin: 10px 0 !important; line-height: 1.6; }
+        .info-card { background: rgba(0, 212, 255, 0.08) !important; border-left: 4px solid #00d4ff !important; border-radius: 10px !important; padding: 25px !important; margin: 30px 0 !important; box-shadow: 0 0 20px rgba(0, 212, 255, 0.1) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; }
+        .info-card:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.25) !important; transform: translateX(5px); }
+        .type-card, .ml-card, .comp-item, .reg-class-card, .fitting-card, .example-card, .use-case-card { background: linear-gradient(135deg, rgba(20, 40, 70, 0.95), rgba(15, 30, 55, 0.95)) !important; border: 1px solid rgba(0, 212, 255, 0.2) !important; border-radius: 15px !important; padding: 30px !important; margin: 20px 0 !important; box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15) !important; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .type-card::before, .ml-card::before, .comp-item::before, .reg-class-card::before, .fitting-card::before, .example-card::before, .use-case-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05)); opacity: 0; transition: opacity 0.3s; z-index: 0; }
+        .type-card:hover::before, .ml-card:hover::before, .comp-item:hover::before, .reg-class-card:hover::before, .fitting-card:hover::before, .example-card:hover::before, .use-case-card:hover::before { opacity: 1; }
+        .type-card:hover, .ml-card:hover, .comp-item:hover, .reg-class-card:hover, .fitting-card:hover, .example-card:hover, .use-case-card:hover { transform: translateY(-8px); box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3) !important; border-color: rgba(0, 212, 255, 0.5) !important; }
+        .type-card > *, .ml-card > *, .comp-item > *, .reg-class-card > *, .fitting-card > *, .example-card > *, .use-case-card > * { position: relative; z-index: 1; }
+        .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .comparison { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .content-image { border-radius: 15px !important; box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; margin: 30px 0 !important; }
+        .content-image:hover { box-shadow: 0 15px 50px rgba(0, 212, 255, 0.35) !important; transform: translateY(-5px); }
+        @media (max-width: 768px) { .topic-hero { padding: 80px 15px 60px !important; } .topic-hero h1 { font-size: 2rem !important; } .topic-content h2 { font-size: 1.5rem; } .topic-content h3 { font-size: 1.1rem; } .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="Ai..html" style="color: white; text-decoration: none;"><h1>AI Learn Hub</h1></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="Ai..html#home">Home</a></li>
+                <li><a href="Ai..html#about">About</a></li>
+                <li><a href="Ai..html#courses">Courses</a></li>
+                <li><a href="Ai..html#testimonials">Testimonials</a></li>
+                <li><a href="Ai..html#contact">Contact</a></li>
+                <li><a href="../login.html" class="auth-btn login-btn">Login</a></li>
+                <li><a href="../signup.html" class="auth-btn signup-btn">Sign Up</a></li>
+                <li><a href="../admin-panel.html" class="auth-btn admin-btn" title="Admin Panel">👨‍💼 Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="topic-hero machine-learning-bg">
+        <div class="container">
+            <h1>🧠 Machine Learning</h1>
+            <p>From Beginner to Advanced: Master the Art of Learning from Data</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="topic-content">
+                <h2>Introduction to Machine Learning</h2>
+                <p>Machine Learning is a subset of AI that enables computers to learn and improve from experience without being explicitly programmed. It focuses on developing algorithms that can learn patterns from data and make predictions or decisions.</p>
+
+                <h2>Supervised & Unsupervised Learning</h2>
+                <div class="ai-image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80" alt="Machine Learning Algorithms" class="content-image">
+                </div>
+                <div class="ml-types">
+                    <div class="ml-card">
+                        <h3>Supervised Learning</h3>
+                        <p>Learning with labeled data. The algorithm learns from input-output pairs to predict outcomes for new data.</p>
+                        <h4>Types:</h4>
+                        <ul>
+                            <li><strong>Regression:</strong> Predicting continuous values (e.g., house prices)</li>
+                            <li><strong>Classification:</strong> Predicting discrete categories (e.g., spam/not spam)</li>
+                        </ul>
+                        <h4>Algorithms:</h4>
+                        <ul>
+                            <li>Linear Regression</li>
+                            <li>Logistic Regression</li>
+                            <li>Decision Trees</li>
+                            <li>Random Forest</li>
+                            <li>Support Vector Machines (SVM)</li>
+                            <li>Neural Networks</li>
+                        </ul>
+                    </div>
+                    <div class="ml-card">
+                        <h3>Unsupervised Learning</h3>
+                        <p>Learning from unlabeled data. The algorithm finds hidden patterns or structures in data without guidance.</p>
+                        <h4>Types:</h4>
+                        <ul>
+                            <li><strong>Clustering:</strong> Grouping similar data points</li>
+                            <li><strong>Dimensionality Reduction:</strong> Reducing features while preserving information</li>
+                            <li><strong>Association:</strong> Finding relationships between variables</li>
+                        </ul>
+                        <h4>Algorithms:</h4>
+                        <ul>
+                            <li>K-Means Clustering</li>
+                            <li>Hierarchical Clustering</li>
+                            <li>Principal Component Analysis (PCA)</li>
+                            <li>Apriori Algorithm</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Regression & Classification Deep Dive</h2>
+                <div class="reg-class">
+                    <div class="reg-class-card">
+                        <h3>Regression</h3>
+                        <p><strong>Goal:</strong> Predict continuous numerical values</p>
+                        <p><strong>Examples:</strong></p>
+                        <ul>
+                            <li>Stock price prediction</li>
+                            <li>Weather forecasting</li>
+                            <li>Sales forecasting</li>
+                            <li>Real estate pricing</li>
+                        </ul>
+                        <p><strong>Evaluation Metrics:</strong></p>
+                        <ul>
+                            <li>Mean Absolute Error (MAE)</li>
+                            <li>Mean Squared Error (MSE)</li>
+                            <li>Root Mean Squared Error (RMSE)</li>
+                            <li>R-squared (coefficient of determination)</li>
+                        </ul>
+                    </div>
+                    <div class="reg-class-card">
+                        <h3>Classification</h3>
+                        <p><strong>Goal:</strong> Predict discrete class labels</p>
+                        <p><strong>Examples:</strong></p>
+                        <ul>
+                            <li>Email spam detection</li>
+                            <li>Medical diagnosis</li>
+                            <li>Image recognition</li>
+                            <li>Credit risk assessment</li>
+                        </ul>
+                        <p><strong>Evaluation Metrics:</strong></p>
+                        <ul>
+                            <li>Accuracy</li>
+                            <li>Precision</li>
+                            <li>Recall</li>
+                            <li>F1-Score</li>
+                            <li>Confusion Matrix</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Model Training & Testing</h2>
+                <div class="training-process">
+                    <h3>The ML Pipeline</h3>
+                    <ol>
+                        <li><strong>Data Collection:</strong> Gather relevant data from various sources</li>
+                        <li><strong>Data Preprocessing:</strong> Clean, normalize, and prepare data</li>
+                        <li><strong>Feature Engineering:</strong> Select and transform features</li>
+                        <li><strong>Model Selection:</strong> Choose appropriate algorithm</li>
+                        <li><strong>Training:</strong> Fit model to training data</li>
+                        <li><strong>Validation:</strong> Tune hyperparameters using validation set</li>
+                        <li><strong>Testing:</strong> Evaluate final model on unseen test data</li>
+                        <li><strong>Deployment:</strong> Integrate model into production system</li>
+                    </ol>
+                </div>
+
+                <div class="data-split">
+                    <h3>Data Splitting Strategies</h3>
+                    <ul>
+                        <li><strong>Train/Validation/Test Split:</strong> 60/20/20 or 70/15/15</li>
+                        <li><strong>Cross-Validation:</strong> K-fold CV for robust evaluation</li>
+                        <li><strong>Stratified Sampling:</strong> Maintain class distribution</li>
+                    </ul>
+                </div>
+
+                <h2>Overfitting & Underfitting</h2>
+                <div class="fitting-issues">
+                    <div class="fitting-card">
+                        <h3>Overfitting</h3>
+                        <p>Model performs well on training data but poorly on new data. Learns noise instead of patterns.</p>
+                        <p><strong>Solutions:</strong></p>
+                        <ul>
+                            <li>Simplify model (reduce complexity)</li>
+                            <li>Use regularization techniques</li>
+                            <li>Increase training data</li>
+                            <li>Cross-validation</li>
+                        </ul>
+                    </div>
+                    <div class="fitting-card">
+                        <h3>Underfitting</h3>
+                        <p>Model is too simple to capture underlying patterns in data.</p>
+                        <p><strong>Solutions:</strong></p>
+                        <ul>
+                            <li>Increase model complexity</li>
+                            <li>Add more features</li>
+                            <li>Reduce regularization</li>
+                            <li>Use more advanced algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Real-life ML Examples</h2>
+                <div class="examples">
+                    <div class="example-card">
+                        <h3>Netflix Recommendations</h3>
+                        <p>Uses collaborative filtering and content-based filtering to suggest movies and shows.</p>
+                        <p><strong>Impact:</strong> 80% of watched content comes from recommendations</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Fraud Detection</h3>
+                        <p>Banks use ML to detect unusual transaction patterns and prevent fraud.</p>
+                        <p><strong>Techniques:</strong> Anomaly detection, classification algorithms</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Medical Diagnosis</h3>
+                        <p>ML assists doctors in diagnosing diseases from medical images and patient data.</p>
+                        <p><strong>Examples:</strong> Cancer detection, retinal disease screening</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Self-Driving Cars</h3>
+                        <p>Complex ML systems process sensor data for autonomous navigation.</p>
+                        <p><strong>Components:</strong> Computer vision, reinforcement learning</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>📧 Email Filtering</h3>
+                        <p>Spam detection using Naive Bayes and other classification algorithms.</p>
+                        <p><strong>Accuracy:</strong> Over 99% for major email providers</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>Voice Assistants</h3>
+                        <p>Natural language processing and speech recognition for Siri, Alexa, etc.</p>
+                        <p><strong>Technologies:</strong> RNNs, Transformers, Speech-to-Text</p>
+                    </div>
+                </div>
+
+                <div class="advanced-topics">
+                    <h2>Advanced ML Concepts</h2>
+                    <ul>
+                        <li><strong>Ensemble Methods:</strong> Bagging, Boosting, Stacking</li>
+                        <li><strong>Reinforcement Learning:</strong> Learning through interaction</li>
+                        <li><strong>Transfer Learning:</strong> Applying knowledge from one task to another</li>
+                        <li><strong>AutoML:</strong> Automated machine learning pipeline</li>
+                        <li><strong>Federated Learning:</strong> Training models across decentralized devices</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Contact Us: Email: Sukhsahota180@gmail.com | Phone: +91 84375-84541 <br> Follow Us: <a href="https://www.facebook.com/profile.php?id=100044796014349&ref=pl_edit_ig_profile_ac">Facebook</a> | <a href="https://www.instagram.com/the.sukh_7854?igsh=cm1oa2ZvMDdoamlr">Instagram</a> | <a href="https://youtube.com/@alienstudiomusic?si=KybFBiusewkhsCaV">YouTube</a> | &copy; 2025 AI Learn Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="Ai.js"></script>
+
+    <nav class="bottom-nav">
+        <a href="Ai..html" class="nav-btn">Home</a>
+        <a href="ai-fundamentals.html" class="nav-btn">AI Fundamentals</a>
+        <a href="machine-learning.html" class="nav-btn">Machine Learning</a>
+        <a href="deep-learning.html" class="nav-btn">Deep Learning</a>
+        <a href="generative-ai.html" class="nav-btn">Generative AI</a>
+        <a href="ai-tools.html" class="nav-btn">AI Tools</a>
+        <a href="ai-projects.html" class="nav-btn">AI Projects</a>
+        <a href="ai-real-world.html" class="nav-btn">AI in Real World</a>
+        <a href="ethics-future-ai.html" class="nav-btn">Ethics & Future</a>
+        <a href="../purchase.html" class="nav-btn">📚 Purchase Courses</a>
+    </nav>
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Learn Hub (Offline)</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        .dashboard-header {
+            background: rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid #00d4ff;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-box h3 {
+            color: #00d4ff;
+            margin: 0 0 1rem 0;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .stat-box .number {
+            color: #00ff88;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .stat-box .label {
+            color: #888;
+            font-size: 12px;
+            margin-top: 0.5rem;
+        }
+
+        .course-section {
+            margin: 3rem 0;
+        }
+
+        .course-section h2 {
+            color: #00d4ff;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .enrolled-courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-item {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .course-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .course-item h4 {
+            color: #00d4ff;
+            margin: 0 0 1rem 0;
+        }
+
+        .course-item p {
+            color: #888;
+            font-size: 14px;
+            margin: 0.5rem 0;
+        }
+
+        .progress-bar {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            border-radius: 4px;
+            height: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .btn-primary {
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #00ff88;
+        }
+
+        .btn-secondary {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border: 1px solid #00d4ff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px dashed #00d4ff;
+            border-radius: 8px;
+            color: #888;
+        }
+
+        .empty-state h3 {
+            color: #00d4ff;
+        }
+
+        .empty-state a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .empty-state a:hover {
+            color: #00ff88;
+        }
+
+        .logout-btn {
+            background: rgba(255, 100, 100, 0.1);
+            color: #ff9898;
+            border: 1px solid #ff6464;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 100, 100, 0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-info {
+            color: #00d4ff;
+            font-size: 14px;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .restricted-message {
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid #ff6464;
+            color: #ff9898;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .restricted-message a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="dashboard-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="margin: 0; color: #00d4ff;">📊 Your Dashboard</h1>
+                    <p style="margin: 0.5rem 0 0 0; color: #888;">Welcome back! Continue learning</p>
+                </div>
+                <div class="header-actions">
+                    <div class="offline-badge">✓ Offline</div>
+                    <div class="user-info" id="userInfo"></div>
+                    <a href="landing.html" class="logout-btn" style="text-decoration: none; display: inline-block;">← Landing</a>
+                    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="restricted-message" id="restrictedMsg" style="display:none;">
+            <p>You need to be logged in to access your dashboard.</p>
+            <p><a href="login.html">← Back to Login</a></p>
+        </div>
+
+        <div id="dashboardContent" style="display:none;">
+            <!-- Statistics -->
+            <div class="dashboard-grid">
+                <div class="stat-box">
+                    <h3>📚 Enrolled Courses</h3>
+                    <p class="number" id="enrolledCount">0</p>
+                    <p class="label">Active courses</p>
+                </div>
+                <div class="stat-box">
+                    <h3>✓ Completed</h3>
+                    <p class="number" id="completedCount">0</p>
+                    <p class="label">Finished courses</p>
+                </div>
+                <div class="stat-box">
+                    <h3>💸 Total Spent</h3>
+                    <p class="number" id="totalSpent">$0</p>
+                    <p class="label">On courses</p>
+                </div>
+                <div class="stat-box">
+                    <h3>📈 Avg Progress</h3>
+                    <p class="number" id="avgProgress">0%</p>
+                    <p class="label">Learning progress</p>
+                </div>
+            </div>
+
+            <!-- My Courses -->
+            <div class="course-section">
+                <h2>📚 My Enrolled Courses</h2>
+                <div id="enrolledCoursesContainer"></div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="course-section" style="text-align: center; padding: 2rem 0;">
+                <h2>Quick Actions</h2>
+                <div style="margin-top: 2rem;">
+                    <button class="btn-primary" onclick="location.href='purchase.html'">
+                        🛒 Browse More Courses
+                    </button>
+                    <button class="btn-secondary" onclick="location.href='profile.html'">
+                        👤 Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function initializeDashboard() {
+            // Load demo user (no login required)
+            const users = JSON.parse(localStorage.getItem('ailearn_users')) || [];
+            const demoUser = users.find(u => u.email === 'admin@ailearnhub.com') || {
+                id: Date.now(),
+                fullName: 'Demo User',
+                email: 'demo@ailearnhub.com',
+                role: 'student'
+            };
+
+            document.getElementById('dashboardContent').style.display = 'block';
+            document.getElementById('userInfo').textContent = `👤 ${demoUser.fullName}`;
+
+            // Demo stats
+            const stats = {
+                enrolledCourses: 3,
+                completedCourses: 1,
+                totalSpent: 1195,
+                averageProgress: 45
+            };
+            document.getElementById('enrolledCount').textContent = stats.enrolledCourses;
+            document.getElementById('completedCount').textContent = stats.completedCourses;
+            document.getElementById('totalSpent').textContent = '$' + stats.totalSpent.toFixed(2);
+            document.getElementById('avgProgress').textContent = stats.averageProgress + '%';
+
+            loadEnrolledCourses();
+        }
+
+        function loadEnrolledCourses() {
+            const enrollments = [
+                { courseId: 1, progress: 45, completed: false },
+                { courseId: 2, progress: 100, completed: true },
+                { courseId: 4, progress: 20, completed: false }
+            ];
+            const container = document.getElementById('enrolledCoursesContainer');
+            const courses = app.getCourses();
+
+            if (enrollments.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>📚 No Courses Yet</h3>
+                        <p>You haven't enrolled in any courses yet.</p>
+                        <p><a href="purchase.html">Browse Courses →</a></p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = enrollments.map(enrollment => {
+                const course = courses.find(c => c.id === enrollment.courseId);
+                if (!course) return '';
+
+                const progressPercent = enrollment.progress || 0;
+                const isCompleted = enrollment.completed;
+
+                return `
+                    <div class="course-item">
+                        <h4>${course.title}</h4>
+                        <p>⏱️ ${course.duration} | 👨‍🏫 ${course.instructor}</p>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin: 1rem 0 0.5rem 0;">
+                                <span style="color: #888; font-size: 12px;">Progress</span>
+                                <span style="color: #00ff88; font-weight: bold;">${progressPercent}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                            </div>
+                        </div>
+                        <p style="margin: 1rem 0 0 0; color: #00ff88; font-size: 12px;">
+                            ${isCompleted ? '✓ Completed!' : 'In Progress'}
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn-primary" onclick="updateProgress(${course.id})">
+                                📖 Continue Learning
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateProgress(courseId) {
+            alert('Progress updated! Demo shows +10% increase');
+            loadEnrolledCourses();
+            initializeDashboard();
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        initializeDashboard();
+    </script>
+</body>
+</html>

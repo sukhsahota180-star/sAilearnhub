@@ -1,0 +1,2999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Courses - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        /* Purchase Page Specific Styles */
+        body {
+            background: #0a0a0a;
+            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=4000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding-top: 80px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Hero Section */
+        .purchase-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(0, 20, 40, 0.92)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=4000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .purchase-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        .purchase-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .purchase-hero h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: #00d4ff;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.2);
+            margin-bottom: 20px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .purchase-hero p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Controls Section */
+        .controls {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            margin-top: -40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group label {
+            color: #00d4ff;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(20, 20, 40, 0.8);
+            color: #00d4ff;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: transparent;
+            color: #00d4ff;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-btn:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #0a0a0a;
+            border-color: transparent;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Course Card */
+        .course-card {
+            background: linear-gradient(135deg, rgba(20, 40, 70, 0.95), rgba(15, 30, 55, 0.95));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .course-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
+        .course-card:hover::after {
+            left: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.35), inset 0 0 20px rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .course-image {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .course-card:hover .course-image::before {
+            opacity: 1;
+        }
+
+        .course-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            width: fit-content;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty.beginner {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.4);
+        }
+
+        .difficulty.intermediate {
+            background: rgba(255, 217, 61, 0.2);
+            color: #ffd93d;
+            border: 1px solid rgba(255, 217, 61, 0.4);
+        }
+
+        .difficulty.advanced {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+        }
+
+        .course-title {
+            color: #00d4ff;
+            margin: 0 0 12px 0;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .course-description {
+            color: #d0d0d0;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .course-meta {
+            color: #00ff88;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-enroll, .btn-view {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-enroll {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #0a0a0a;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-enroll::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn-enroll:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-enroll:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+        }
+
+        .btn-enroll.enrolled {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-view {
+            background: transparent;
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.05);
+        }
+
+        .btn-view:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Messages */
+        .message {
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
+            border-left: 4px solid;
+            animation: slideDown 0.3s ease-out;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message.success {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border-left-color: #00ff88;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .message.info {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            border-left-color: #00d4ff;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            color: #999;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            max-width: 600px;
+            margin: 60px auto;
+        }
+
+        .empty-state h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 80px 20px;
+            margin-top: 60px;
+            border-top: 2px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .features-section h2 {
+            margin-bottom: 50px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+            transition: all 0.6s;
+            z-index: 0;
+        }
+
+        .feature-card:hover::before {
+            top: -25%;
+            right: -25%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .feature-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-card p {
+            color: #d0d0d0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .course-actions {
+                flex-direction: column;
+            }
+
+            .purchase-hero {
+                padding: 80px 15px 60px;
+            }
+
+            .purchase-hero h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .empty-state {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE</div>
+
+    <!-- Header (from Ai.css) -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>AI Learn Hub</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="landing.html">Home</a></li>
+                <li><a href="Ai..html">Courses</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="../purchase.html" class="active">Purchase</a></li>
+                <li><a href="../login.html" class="auth-btn login-btn">Login</a></li>
+                <li><a href="../signup.html" class="auth-btn signup-btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="purchase-hero">
+        <div class="hero-content">
+            <h1>🎓 Explore Our Courses</h1>
+            <p>Master AI, Machine Learning, Deep Learning, and cutting-edge technologies with our expert-led courses</p>
+        </div>
+    </section>
+
+    <!-- Controls Section -->
+    <div class="container">
+        <div class="controls">
+            <div class="filter-group">
+                <label>📚 Filter by:</label>
+                <select id="difficultyFilter">
+                    <option value="">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                <button class="filter-btn" onclick="filterCourses('featured')">⭐ Featured</button>
+                <button class="filter-btn" onclick="filterCourses('popular')">🔥 Popular</button>
+            </div>
+        </div>
+
+        <div id="successMessage" class="message success" style="display:none;"></div>
+        <div id="infoMessage" class="message info" style="display:none;"></div>
+
+        <!-- Courses Grid -->
+        <div class="courses-grid" id="coursesGrid">
+            <!-- Courses will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <h3>No courses found</h3>
+            <p>Try adjusting your filters or search terms</p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose Our Courses?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">👨‍🏫</span>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from AI professionals with industry experience</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Hands-On Projects</h3>
+                    <p>Build real-world projects and gain practical skills</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💡</span>
+                    <h3>Latest Technologies</h3>
+                    <p>Stay updated with cutting-edge AI and ML technologies</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Certificates</h3>
+                    <p>Earn recognized certificates upon course completion</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Global Community</h3>
+                    <p>Connect with learners and professionals worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⏱️</span>
+                    <h3>Learn at Your Pace</h3>
+                    <p>Self-paced learning with lifetime course access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .course-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+
+        .course-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #666;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .difficulty.beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .course-title {
+            color: #333;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-enroll {
+            flex: 1;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-enroll:hover {
+            background: #5568d3;
+        }
+
+        .btn-enroll.enrolled {
+            background: #28a745;
+        }
+
+        .btn-view {
+            flex: 1;
+            padding: 10px;
+            background: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-view:hover {
+            background: #e0e0e0;
+        }
+
+        .empty-state {
+            background: white;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            select {
+                width: 100%;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+        .purchase-hero {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1)), url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=4000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .purchase-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.7);
+            z-index: 1;
+        }
+
+        .purchase-hero .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .features-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
+        }
+
+        .course-image {
+            height: 200px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #0a0a0a;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 1rem 0;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+            color: #00d4ff;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Bundles Section */
+        .bundles-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .bundles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .bundle-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .bundle-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.3);
+        }
+
+        .bundle-card.featured {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+            transform: scale(1.05);
+        }
+
+        .bundle-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .bundle-badge.best-seller {
+            background: linear-gradient(135deg, #ff6b00, #ff9500);
+        }
+
+        .bundle-card h3 {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .bundle-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .bundle-card li {
+            padding: 0.5rem 0;
+            color: #00d4ff;
+        }
+
+        .bundle-price {
+            margin: 1.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 1rem;
+        }
+
+        .final-price {
+            font-size: 2rem;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .add-bundle-btn {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .add-bundle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Shopping Cart */
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .floating-cart-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.6);
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff6b00;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(0, 40, 80, 0.9));
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
+        }
+
+        .checkout-modal {
+            max-width: 700px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #00d4ff;
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #00d4ff;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #00ff88;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .item-price {
+            color: #00ff88;
+            margin-right: 1rem;
+        }
+
+        .remove-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #ff6666;
+        }
+
+        .cart-summary {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: #00d4ff;
+        }
+
+        .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ff88;
+            border-top: 2px solid rgba(0, 212, 255, 0.3);
+            padding-top: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .discount-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .discount-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .discount-input::placeholder {
+            color: #666;
+        }
+
+        .apply-btn {
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #00ff88;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            padding: 2rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+
+        .modal-btn.cancel:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .modal-btn.checkout {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+        }
+
+        .modal-btn.checkout:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Checkout Form */
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: #666;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .order-summary {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .order-summary h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: #00d4ff;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            color: #00d4ff;
+            cursor: pointer;
+        }
+
+        .checkbox input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .checkout-submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .checkout-submit-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+            transform: scale(1.02);
+        }
+
+        .checkout-submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-cart-btn {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .payment-method {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .payment-method.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .payment-method-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-method-name {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Success Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+
+        .success-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-content {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(0, 40, 80, 0.9));
+            border: 2px solid rgba(0, 255, 136, 0.5);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.4);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .success-content h1 {
+            color: #00ff88;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-content p {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: #00d4ff;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .order-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-detail-label {
+            font-weight: bold;
+        }
+
+        .order-detail-value {
+            color: #00ff88;
+        }
+
+        .suggested-courses {
+            margin-top: 2rem;
+        }
+
+        .suggested-courses h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .suggested-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .suggested-card {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .suggested-card:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .suggested-course-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggested-course-name {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggested-course-price {
+            color: #00ff88;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-suggested-btn {
+            background: rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-suggested-btn:hover {
+            background: rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .success-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .success-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .success-btn.primary {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #000;
+        }
+
+        .success-btn.primary:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+            transform: scale(1.05);
+        }
+
+        .success-btn.secondary {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+        }
+
+        .success-btn.secondary:hover {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .payment-method-form {
+            display: none;
+        }
+
+        .payment-method-form.active {
+            display: block;
+        }
+
+        .payment-option {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-option h4 {
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            color: #0a0a0a;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-elements div {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-elements div:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-elements div:nth-child(2) { top: 20%; left: 80%; animation-delay: 1s; }
+        .floating-elements div:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; }
+        .floating-elements div:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; }
+        .floating-elements div:nth-child(5) { top: 40%; left: 50%; animation-delay: 4s; }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE MODE</div>
+
+    <header>
+        <div class="header-content">
+            <h1>📚 Browse Courses</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="my-courses.html" class="btn btn-secondary">My Courses</a>
+                <a href="landing.html" class="btn btn-secondary">← Landing</a>
+                <a href="index.html" class="btn btn-secondary">← Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="message" class="message"></div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter by Difficulty:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterByDifficulty('all')">All Levels</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('Beginner')">Beginner</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('Intermediate')">Intermediate</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('Advanced')">Advanced</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select onchange="sortCourses(this.value)">
+                    <option value="popular">Most Popular</option>
+                    <option value="rated">Highest Rated</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="newest">Newest First</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Courses Grid -->
+        <div id="coursesContainer"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        let currentUser = null;
+        let allCourses = [];
+        let filteredCourses = [];
+        let currentFilter = 'all';
+
+        function initCourses() {
+            currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            allCourses = app.getCourses();
+            filteredCourses = [...allCourses];
+            renderCourses();
+        }
+
+        function filterByDifficulty(difficulty) {
+            currentFilter = difficulty;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter courses
+            if (difficulty === 'all') {
+                filteredCourses = [...allCourses];
+            } else {
+                filteredCourses = allCourses.filter(c => c.difficulty === difficulty);
+            }
+
+            renderCourses();
+        }
+
+        function sortCourses(sortBy) {
+            const sortedCourses = [...filteredCourses];
+
+            switch(sortBy) {
+                case 'popular':
+                    sortedCourses.sort((a, b) => (b.studentCount || 0) - (a.studentCount || 0));
+                    break;
+                case 'rated':
+                    sortedCourses.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'price-low':
+                    sortedCourses.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    sortedCourses.sort((a, b) => b.price - a.price);
+                    break;
+                case 'newest':
+                    sortedCourses.sort((a, b) => b.id - a.id);
+                    break;
+            }
+
+            filteredCourses = sortedCourses;
+            renderCourses();
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('coursesContainer');
+
+            if (filteredCourses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No courses found</h3>
+                        <p>Try adjusting your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '<div class="courses-grid">' +
+                filteredCourses.map(course => {
+                    const isEnrolled = currentUser && app.getEnrollment(currentUser.id, course.id);
+                    const enrollBtnText = isEnrolled ? '✓ Enrolled' : '🎓 Enroll Now';
+                    const enrollBtnClass = isEnrolled ? 'btn-enroll enrolled' : 'btn-enroll';
+
+                    return `
+                        <div class="course-card">
+                            <div class="course-image">${course.icon || '📚'}</div>
+                            <div class="course-content">
+                                <div class="difficulty ${(course.difficulty || '').toLowerCase()}">
+                                    ${course.difficulty || 'Intermediate'}
+                                </div>
+                                <h3 class="course-title">${course.title}</h3>
+                                <p class="course-description">${course.description}</p>
+                                <div class="course-meta">
+                                    <span>⭐ ${course.rating}</span>
+                                    <span>👥 ${course.studentCount || '100+'}</span>
+                                    <span>⏱️ ${course.duration || '40'}h</span>
+                                </div>
+                                <div class="price">${app.formatPrice(course.price)}</div>
+                                <div class="course-actions">
+                                    <button class="${enrollBtnClass}" 
+                                            onclick="${isEnrolled ? 'viewCourse' : 'enrollCourse'}(${course.id})">
+                                        ${enrollBtnText}
+                                    </button>
+                                    <button class="btn-view" onclick="viewCourse(${course.id})">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('') +
+            '</div>';
+        }
+
+        function enrollCourse(courseId) {
+            if (!currentUser) {
+                showMessage('Please <a href="login.html" style="color: inherit; text-decoration: underline;">login</a> to enroll', 'info');
+                return;
+            }
+
+            try {
+                app.purchaseCourse(currentUser.id, courseId);
+                showMessage('✓ Successfully enrolled in course!', 'success');
+                
+                // Update enrollment status
+                setTimeout(() => {
+                    initCourses();
+                }, 500);
+            } catch (error) {
+                showMessage('Error enrolling in course!', 'error');
+            }
+        }
+
+        function viewCourse(courseId) {
+            window.location.href = 'course.html?id=' + courseId;
+        }
+
+        function showMessage(text, type) {
+            const msgEl = document.getElementById('message');
+            msgEl.innerHTML = text;
+            msgEl.className = 'message ' + type;
+
+            if (type !== 'error') {
+                setTimeout(() => {
+                    msgEl.className = 'message';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', initCourses);
+    </script>
+</body>
+</html>
+    <div class="floating-elements">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>AI Learn Hub</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/main_file/Ai.html">Home</a></li>
+                <li><a href="../login.html">Login</a></li>
+                <li><a href="../signup.html">Signup</a></li>
+                <li><a href="../admin-panel.html" class="auth-btn admin-btn" title="Admin Panel">👨‍💼 Admin</a></li>
+                <li><a href="purchase.html">Courses</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="purchase-hero">
+        <div class="hero-content">
+            <h1>Unlock Your AI Potential</h1>
+            <p>Choose from our comprehensive collection of AI courses designed to take you from beginner to expert.</p>
+            <a href="#courses" class="cta-button">Explore Courses</a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose Our Courses?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from industry professionals with years of AI experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Comprehensive Content</h3>
+                    <p>In-depth courses covering theory, practical applications, and real-world projects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Hands-on Learning</h3>
+                    <p>Build real AI projects and gain practical skills you can apply immediately.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Certification</h3>
+                    <p>Earn recognized certificates upon course completion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundles Section -->
+    <section id="bundles" class="bundles-section">
+        <div class="container">
+            <h2>🎁 Exclusive Course Bundles</h2>
+            <div class="bundles-grid">
+                <div class="bundle-card">
+                    <div class="bundle-badge">Save 25%</div>
+                    <h3>Beginner Bundle</h3>
+                    <p>Perfect to start your AI journey</p>
+                    <ul>
+                        <li>✓ AI Fundamentals</li>
+                        <li>✓ Machine Learning Basics</li>
+                        <li>✓ AI Tools (No-Code)</li>
+                    </ul>
+                    <p class="bundle-price"><span class="original-price">$169.97</span> <span class="final-price">$129.99</span></p>
+                    <button class="add-bundle-btn" onclick="addBundleToCart('beginner', 'Beginner Bundle', 129.99, ['AI Fundamentals', 'Machine Learning', 'AI Tools'])">Add to Cart</button>
+                </div>
+                <div class="bundle-card featured">
+                    <div class="bundle-badge best-seller">Best Seller</div>
+                    <h3>Professional Bundle</h3>
+                    <p>Master AI with comprehensive training</p>
+                    <ul>
+                        <li>✓ AI Fundamentals</li>
+                        <li>✓ Machine Learning</li>
+                        <li>✓ Deep Learning</li>
+                        <li>✓ Generative AI</li>
+                        <li>✓ AI Projects</li>
+                    </ul>
+                    <p class="bundle-price"><span class="original-price">$409.96</span> <span class="final-price">$279.99</span></p>
+                    <button class="add-bundle-btn" onclick="addBundleToCart('professional', 'Professional Bundle', 279.99, ['AI Fundamentals', 'Machine Learning', 'Deep Learning', 'Generative AI', 'AI Projects'])">Add to Cart</button>
+                </div>
+                <div class="bundle-card">
+                    <div class="bundle-badge">Save 30%</div>
+                    <h3>Complete Bundle</h3>
+                    <p>All courses for lifetime access</p>
+                    <ul>
+                        <li>✓ All 8 Courses</li>
+                        <li>✓ Lifetime Access</li>
+                        <li>✓ Free Updates</li>
+                    </ul>
+                    <p class="bundle-price"><span class="original-price">$579.94</span> <span class="final-price">$399.99</span></p>
+                    <button class="add-bundle-btn" onclick="addBundleToCart('complete', 'Complete Bundle', 399.99, ['AI Fundamentals', 'Machine Learning', 'Deep Learning', 'Generative AI', 'AI Tools', 'AI Projects', 'AI in Real World', 'Ethics & Future of AI'])">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Individual Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2>Our AI Courses</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-image">🧠</div>
+                    <div class="course-content">
+                        <h3>AI Fundamentals</h3>
+                        <p>Learn the basics of AI, types, and its role in daily life.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 20 hours</span>
+                            <span class="level">🎯 Beginner</span>
+                        </div>
+                        <p class="course-price">$49.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('AI Fundamentals', 49.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">⚙️</div>
+                    <div class="course-content">
+                        <h3>Machine Learning</h3>
+                        <p>From beginner to advanced ML concepts, algorithms, and applications.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 32 hours</span>
+                            <span class="level">🎯 Intermediate</span>
+                        </div>
+                        <p class="course-price">$79.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('Machine Learning', 79.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🌐</div>
+                    <div class="course-content">
+                        <h3>Deep Learning</h3>
+                        <p>Neural networks, CNN, RNN, and real-world use cases.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 40 hours</span>
+                            <span class="level">🎯 Advanced</span>
+                        </div>
+                        <p class="course-price">$99.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('Deep Learning', 99.99)">Add to Cart</button>
+                    </div>
+                    <div class="popular-badge">Popular</div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🎨</div>
+                    <div class="course-content">
+                        <h3>Generative AI</h3>
+                        <p>ChatGPT, LLMs, prompt engineering, and creative AI tools.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 28 hours</span>
+                            <span class="level">🎯 Intermediate</span>
+                        </div>
+                        <p class="course-price">$69.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('Generative AI', 69.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🛠️</div>
+                    <div class="course-content">
+                        <h3>AI Tools</h3>
+                        <p>No-coding AI tools for students, creators, designers, and businesses.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 15 hours</span>
+                            <span class="level">🎯 Beginner</span>
+                        </div>
+                        <p class="course-price">$39.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('AI Tools', 39.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🚀</div>
+                    <div class="course-content">
+                        <h3>AI Projects</h3>
+                        <p>Build chatbots, classifiers, and other AI projects hands-on.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 35 hours</span>
+                            <span class="level">🎯 Advanced</span>
+                        </div>
+                        <p class="course-price">$89.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('AI Projects', 89.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🌍</div>
+                    <div class="course-content">
+                        <h3>AI in Real World</h3>
+                        <p>AI applications in healthcare, finance, education, gaming, and more.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 24 hours</span>
+                            <span class="level">🎯 Intermediate</span>
+                        </div>
+                        <p class="course-price">$59.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('AI in Real World', 59.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">⚖️</div>
+                    <div class="course-content">
+                        <h3>Ethics & Future of AI</h3>
+                        <p>AI risks, ethics, job impacts, and how to stay relevant.</p>
+                        <div class="course-meta">
+                            <span class="duration">⏱️ 18 hours</span>
+                            <span class="level">🎯 Beginner</span>
+                        </div>
+                        <p class="course-price">$49.99</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('Ethics & Future of AI', 49.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Shopping Cart</h2>
+                <span class="close-modal" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems">
+                    <p class="empty-cart">Your cart is empty</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Discount Code:</span>
+                        <div class="discount-input-group">
+                            <input type="text" id="discountCode" placeholder="Enter code" class="discount-input">
+                            <button onclick="applyDiscount()" class="apply-btn">Apply</button>
+                        </div>
+                    </div>
+                    <div class="summary-row" id="discountRow" style="display:none; color: #00ff88;">
+                        <span>Discount:</span>
+                        <span id="discountAmount">-$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeCart()">Continue Shopping</button>
+                <button class="modal-btn checkout" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content checkout-modal">
+            <div class="modal-header">
+                <h2>💳 Checkout</h2>
+                <span class="close-modal" onclick="closeCheckout()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="checkoutForm" onsubmit="submitPayment(event)">
+                    <div class="form-section">
+                        <h3>Select Payment Method</h3>
+                        <div class="payment-methods">
+                            <div class="payment-method active" onclick="selectPaymentMethod('card', this)">
+                                <div class="payment-method-icon">💳</div>
+                                <div class="payment-method-name">Credit Card</div>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('paypal', this)">
+                                <div class="payment-method-icon">🅿️</div>
+                                <div class="payment-method-name">PayPal</div>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('apple', this)">
+                                <div class="payment-method-icon">🍎</div>
+                                <div class="payment-method-name">Apple Pay</div>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('google', this)">
+                                <div class="payment-method-icon">🔵</div>
+                                <div class="payment-method-name">Google Pay</div>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('bank', this)">
+                                <div class="payment-method-icon">🏦</div>
+                                <div class="payment-method-name">Bank Transfer</div>
+                            </div>
+                            <div class="payment-method" onclick="selectPaymentMethod('crypto', this)">
+                                <div class="payment-method-icon">₿</div>
+                                <div class="payment-method-name">Crypto</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cardForm" class="payment-method-form active">
+                        <div class="form-section">
+                            <h3>Billing Information</h3>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="fullName" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="email" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="phone" placeholder="+1 234-567-8900" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Payment Information</h3>
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="paypalForm" class="payment-method-form">
+                        <div class="form-section">
+                            <h3>PayPal Payment</h3>
+                            <div class="payment-option">
+                                <h4>📧 PayPal Email</h4>
+                                <input type="email" placeholder="your-paypal@example.com" required>
+                                <p style="color: #999; font-size: 0.9rem; margin-top: 0.5rem;">You'll be redirected to PayPal to complete the payment securely.</p>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3>Billing Information</h3>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="appleForm" class="payment-method-form">
+                        <div class="payment-option">
+                            <h4>🍎 Apple Pay</h4>
+                            <p>Click the button below to pay with Apple Pay</p>
+                            <button type="button" class="checkout-submit-btn" style="margin-top: 1rem;">Pay with Apple Pay</button>
+                        </div>
+                    </div>
+
+                    <div id="googleForm" class="payment-method-form">
+                        <div class="payment-option">
+                            <h4>🔵 Google Pay</h4>
+                            <p>Click the button below to pay with Google Pay</p>
+                            <button type="button" class="checkout-submit-btn" style="margin-top: 1rem;">Pay with Google Pay</button>
+                        </div>
+                    </div>
+
+                    <div id="bankForm" class="payment-method-form">
+                        <div class="form-section">
+                            <h3>Bank Transfer Details</h3>
+                            <div class="payment-option">
+                                <p><strong>Bank Name:</strong> AI Learn Hub Finance</p>
+                                <p><strong>Account Number:</strong> 1234567890</p>
+                                <p><strong>Routing Number:</strong> 987654321</p>
+                                <p><strong>Reference:</strong> <span id="bankRef">AIHUB-2026-001</span></p>
+                                <p style="color: #999; margin-top: 1rem;">Please include the reference number in your transfer.</p>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3>Your Information</h3>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cryptoForm" class="payment-method-form">
+                        <div class="form-section">
+                            <h3>Cryptocurrency Payment</h3>
+                            <div class="payment-option">
+                                <h4>💰 Accepted Cryptocurrencies</h4>
+                                <p>✓ Bitcoin (BTC)</p>
+                                <p>✓ Ethereum (ETH)</p>
+                                <p>✓ USDC (Stablecoin)</p>
+                                <p style="color: #999; margin-top: 1rem;">Send payment to our crypto wallet address. You'll receive a confirmation email with the wallet details.</p>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3>Your Information</h3>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Wallet Address (for refund if needed)</label>
+                                <input type="text" placeholder="Your wallet address" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutItems"></div>
+                        <div class="summary-row total">
+                            <span>Total Amount:</span>
+                            <span id="checkoutTotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <label class="checkbox">
+                        <input type="checkbox" id="terms" required>
+                        I agree to the Terms & Conditions
+                    </label>
+
+                    <button type="submit" class="checkout-submit-btn">Complete Purchase</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Floating Button -->
+    <button id="cartBtn" class="floating-cart-btn" onclick="openCart()">
+        <span class="cart-icon">🛒</span>
+        <span id="cartCount" class="cart-count">0</span>
+    </button>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal">
+        <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h1>Thank You for Your Purchase!</h1>
+            <p>Your payment has been processed successfully. Welcome to the AI Learn Hub family! 🎉</p>
+
+            <div class="order-details">
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Transaction ID:</span>
+                    <span class="order-detail-value" id="transactionId">AIHUB-2026-001</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Purchase Date:</span>
+                    <span class="order-detail-value" id="purchaseDate">Jan 19, 2026</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Total Amount:</span>
+                    <span class="order-detail-value" id="totalAmount">$0.00</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Courses:</span>
+                    <span class="order-detail-value" id="coursesList">-</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Status:</span>
+                    <span class="order-detail-value" style="color: #00ff88;">✓ Completed</span>
+                </div>
+            </div>
+
+            <p>📧 A confirmation email has been sent to your inbox with access details.</p>
+
+            <div class="suggested-courses">
+                <h3>🎓 Continue Your Learning Journey</h3>
+                <p style="color: #999; margin-bottom: 1rem;">Check out these recommended courses to expand your AI knowledge:</p>
+                <div class="suggested-grid" id="suggestedCoursesGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="success-buttons">
+                <button class="success-btn secondary" onclick="goToDashboard()">Go to Dashboard</button>
+                <button class="success-btn primary" onclick="continueShopping()">Browse More Courses</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your AI Journey?</h2>
+            <p>Join thousands of students who have transformed their careers with our AI courses.</p>
+            <a href="#courses" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+  <footer id="contact">
+        <div class="container">
+            <p>Contact Us: Email: Sukhsahota180@gmail.com | Phone: +91 84375-84541 <br> Follow Us: <a href="https://www.facebook.com/profile.php?id=100044796014349&ref=pl_edit_ig_profile_ac">Facebook</a> | <a href="https://www.instagram.com/the.sukh_7854?igsh=cm1oa2ZvMDdoamlr">Instagram</a> | <a href="https://youtube.com/@alienstudiomusic?si=KybFBiusewkhsCaV">YouTube</a> | &copy; 2025 AI Learn Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="Ai.js"></script>
+
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    <nav class="bottom-nav">
+        <a href="Ai.html" class="nav-btn">Home</a>
+        <a href="ai-fundamentals.html" class="nav-btn">AI Fundamentals</a>
+        <a href="machine-learning.html" class="nav-btn">Machine Learning</a>
+        <a href="deep-learning.html" class="nav-btn">Deep Learning</a>
+        <a href="generative-ai.html" class="nav-btn">Generative AI</a>
+        <a href="ai-tools.html" class="nav-btn">AI Tools</a>
+        <a href="ai-projects.html" class="nav-btn">AI Projects</a>
+        <a href="ai-real-world.html" class="nav-btn">AI in Real World</a>
+        <a href="ethics-future-ai.html" class="nav-btn">Ethics & Future</a>
+        <a href="purchase.html" class="nav-btn">Purchase Courses</a>
+    </nav>
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <script>
+        // Shopping Cart Data
+        let cart = [];
+        let discountApplied = 0;
+        let selectedPaymentMethod = 'card';
+
+        // All Courses from localStorage
+        const allCourses = [
+            { name: 'AI Fundamentals', price: 49.99, icon: '🧠', level: 'Beginner' },
+            { name: 'Machine Learning', price: 79.99, icon: '⚙️', level: 'Intermediate' },
+            { name: 'Deep Learning', price: 99.99, icon: '🌐', level: 'Advanced' },
+            { name: 'Generative AI', price: 69.99, icon: '🎨', level: 'Intermediate' },
+            { name: 'AI Tools', price: 39.99, icon: '🛠️', level: 'Beginner' },
+            { name: 'AI Projects', price: 89.99, icon: '🚀', level: 'Advanced' },
+            { name: 'AI in Real World', price: 59.99, icon: '🌍', level: 'Intermediate' },
+            { name: 'Ethics & Future of AI', price: 49.99, icon: '⚖️', level: 'Beginner' }
+        ];
+
+        // Discount Codes (key: code, value: discount percentage)
+        const discountCodes = {
+            'WELCOME10': 10,
+            'SAVE15': 15,
+            'LEARN20': 20,
+            'AIHUB25': 25,
+            'NEWYEAR30': 30
+        };
+
+        // Select Payment Method
+        function selectPaymentMethod(method, element) {
+            selectedPaymentMethod = method;
+
+            // Update UI
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+            element.classList.add('active');
+
+            // Show/hide payment forms
+            document.querySelectorAll('.payment-method-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            const formId = method === 'card' ? 'cardForm' : method + 'Form';
+            const formElement = document.getElementById(formId);
+            if (formElement) {
+                formElement.classList.add('active');
+            }
+
+            showNotification(`Payment method: ${method.charAt(0).toUpperCase() + method.slice(1)}`);
+        }
+
+        // Add single course to cart
+        function addToCart(courseName, price) {
+            cart.push({ name: courseName, price: price });
+            updateCartUI();
+            showNotification(`${courseName} added to cart!`);
+        }
+
+        // Add bundle to cart
+        function addBundleToCart(bundleId, bundleName, bundlePrice, courses) {
+            cart.push({ name: bundleName, price: bundlePrice, isBundle: true, courses: courses });
+            updateCartUI();
+            showNotification(`${bundleName} added to cart!`);
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            cartCount.textContent = cart.length;
+            updateCartItems();
+            calculateTotals();
+        }
+
+        // Update cart items display
+        function updateCartItems() {
+            const cartItems = document.getElementById('cartItems');
+            const checkoutItems = document.getElementById('checkoutItems');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                checkoutItems.innerHTML = '';
+                return;
+            }
+
+            let cartHTML = '';
+            let checkoutHTML = '';
+
+            cart.forEach((item, index) => {
+                cartHTML += `
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                        </div>
+                        <div class="item-price">$${item.price.toFixed(2)}</div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+
+                checkoutHTML += `
+                    <div class="checkout-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = cartHTML;
+            checkoutItems.innerHTML = checkoutHTML;
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            const item = cart[index];
+            cart.splice(index, 1);
+            updateCartUI();
+            showNotification(`${item.name} removed from cart`);
+        }
+
+        // Calculate totals
+        function calculateTotals() {
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price;
+            });
+
+            let discount = (subtotal * discountApplied) / 100;
+            let total = subtotal - discount;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+            document.getElementById('checkoutTotal').textContent = '$' + total.toFixed(2);
+
+            if (discountApplied > 0) {
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('discountAmount').textContent = '-$' + discount.toFixed(2);
+            } else {
+                document.getElementById('discountRow').style.display = 'none';
+            }
+        }
+
+        // Apply discount code
+        function applyDiscount() {
+            const code = document.getElementById('discountCode').value.toUpperCase();
+
+            if (code === '') {
+                alert('Please enter a discount code');
+                return;
+            }
+
+            if (discountCodes[code]) {
+                discountApplied = discountCodes[code];
+                calculateTotals();
+                showNotification(`Discount code "${code}" applied! ${discountApplied}% off`);
+                document.getElementById('discountCode').value = '';
+            } else {
+                alert('Invalid discount code');
+            }
+        }
+
+        // Open cart modal
+        function openCart() {
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            document.getElementById('cartModal').classList.add('active');
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        // Proceed to checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            document.getElementById('cartModal').classList.remove('active');
+            document.getElementById('checkoutModal').classList.add('active');
+            resetCheckoutForm();
+        }
+
+        // Reset checkout form
+        function resetCheckoutForm() {
+            selectPaymentMethod('card', document.querySelector('.payment-method.active'));
+        }
+
+        // Close checkout modal
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        // Get suggested courses (exclude already purchased)
+        function getSuggestedCourses() {
+            let purchasedCourses = new Set();
+            cart.forEach(item => {
+                if (item.isBundle && item.courses) {
+                    item.courses.forEach(course => purchasedCourses.add(course));
+                } else {
+                    purchasedCourses.add(item.name);
+                }
+            });
+
+            return allCourses.filter(course => !purchasedCourses.has(course.name)).slice(0, 4);
+        }
+
+        // Populate suggested courses
+        function populateSuggestedCourses() {
+            const suggestedGrid = document.getElementById('suggestedCoursesGrid');
+            const suggested = getSuggestedCourses();
+
+            let html = '';
+            suggested.forEach(course => {
+                html += `
+                    <div class="suggested-card">
+                        <div class="suggested-course-icon">${course.icon}</div>
+                        <div class="suggested-course-name">${course.name}</div>
+                        <div class="suggested-course-price">$${course.price.toFixed(2)}</div>
+                        <div style="color: #999; font-size: 0.8rem; margin-bottom: 0.5rem;">${course.level}</div>
+                        <button class="add-suggested-btn" onclick="addToCartAndContinue('${course.name}', ${course.price})">+ Add Course</button>
+                    </div>
+                `;
+            });
+
+            suggestedGrid.innerHTML = html;
+        }
+
+        // Add suggested course and continue shopping
+        function addToCartAndContinue(courseName, price) {
+            addToCart(courseName, price);
+            closeSuccessModal();
+            openCart();
+        }
+
+        // Show success modal
+        function showSuccessModal(transactionId, totalAmount) {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+            // Get purchased courses
+            let coursesList = [];
+            cart.forEach(item => {
+                if (item.isBundle && item.courses) {
+                    coursesList.push(...item.courses);
+                } else {
+                    coursesList.push(item.name);
+                }
+            });
+
+            // Update modal content
+            document.getElementById('transactionId').textContent = transactionId;
+            document.getElementById('purchaseDate').textContent = dateStr;
+            document.getElementById('totalAmount').textContent = '$' + totalAmount.toFixed(2);
+            document.getElementById('coursesList').textContent = coursesList.join(', ');
+
+            // Populate suggested courses
+            populateSuggestedCourses();
+
+            // Show modal
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        // Go to dashboard
+        function goToDashboard() {
+            window.location.href = 'Ai.html';
+        }
+
+        // Continue shopping
+        function continueShopping() {
+            closeSuccessModal();
+            cart = [];
+            discountApplied = 0;
+            updateCartUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showNotification('Continue browsing our courses!');
+        }
+
+        // Submit payment
+        async function submitPayment(event) {
+            event.preventDefault();
+
+            // Calculate total
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price;
+            });
+            let total = subtotal - (subtotal * discountApplied) / 100;
+
+            // Prepare course list
+            let coursesList = [];
+            cart.forEach(item => {
+                if (item.isBundle && item.courses) {
+                    coursesList.push(...item.courses);
+                } else {
+                    coursesList.push(item.name);
+                }
+            });
+
+            // Get form data based on payment method
+            let fullName = '';
+            let email = '';
+            let phone = '';
+
+            if (selectedPaymentMethod === 'card') {
+                fullName = document.getElementById('fullName').value;
+                email = document.getElementById('email').value;
+                phone = document.getElementById('phone').value;
+
+                if (!fullName || !email || !phone) {
+                    alert('Please fill in all billing information');
+                    return;
+                }
+            } else {
+                // For other payment methods, get from form
+                const inputs = document.querySelector('.payment-method-form.active')?.querySelectorAll('input[type="text"], input[type="email"]');
+                if (inputs && inputs.length > 0) {
+                    fullName = inputs[0].value || 'Customer';
+                    email = inputs[1]?.value || 'customer@example.com';
+                    phone = inputs[2]?.value || '+1-000-000-0000';
+                }
+            }
+
+            try {
+                // Send to backend API
+                const response = await fetch('/api/purchases/purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        course_name: coursesList.join(', '),
+                        course_price: total,
+                        full_name: fullName,
+                        email: email,
+                        phone: phone,
+                        payment_method: selectedPaymentMethod
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Generate transaction ID
+                    const transactionId = 'AIHUB-' + Date.now().toString().slice(-8);
+
+                    // Show success modal with suggested courses
+                    document.getElementById('checkoutModal').classList.remove('active');
+                    showSuccessModal(transactionId, total);
+
+                    // Clear cart
+                    cart = [];
+                    discountApplied = 0;
+                    updateCartUI();
+
+                    // Reset form
+                    document.getElementById('checkoutForm').reset();
+                } else {
+                    alert('Payment failed: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error processing payment. Please try again.');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #00d4ff, #00ff88);
+                color: #000;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+            `;
+            notification.textContent = message;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(400px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease-out reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Format card number
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardInput = document.getElementById('cardNumber');
+            if (cardInput) {
+                cardInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s/g, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                    e.target.value = formattedValue;
+                });
+            }
+
+            const expiryInput = document.getElementById('expiryDate');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const cartModal = document.getElementById('cartModal');
+            const checkoutModal = document.getElementById('checkoutModal');
+            const successModal = document.getElementById('successModal');
+            
+            if (event.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+            if (event.target === checkoutModal) {
+                checkoutModal.classList.remove('active');
+            }
+            if (event.target === successModal) {
+                successModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .welcome-card .user-name {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-card .user-email {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .role-badge.admin {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .option-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .option-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .option-card p {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .divider {
+            height: 2px;
+            background: #eee;
+            margin: 30px 0;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .welcome-card {
+                padding: 25px;
+            }
+
+            .welcome-card h2 {
+                font-size: 22px;
+            }
+
+            .user-name {
+                font-size: 18px;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE MODE</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Welcome!</h1>
+            <p>You're all set to start learning</p>
+        </div>
+
+        <div class="welcome-card">
+            <h2>Hello, <span class="user-name" id="userName">User</span>!</h2>
+            <div class="user-email" id="userEmail">user@example.com</div>
+            <div class="role-badge" id="roleBadge">Student</div>
+
+            <p style="color: #666; margin-bottom: 30px;">
+                You've successfully logged in. What would you like to do next?
+            </p>
+
+            <div id="studentOptions" style="display: none;">
+                <div class="options-grid">
+                    <a href="dashboard.html" class="option-card">
+                        <div class="icon">📊</div>
+                        <h3>Dashboard</h3>
+                        <p>View your enrolled courses and track progress</p>
+                    </a>
+                    <a href="my-courses.html" class="option-card">
+                        <div class="icon">📚</div>
+                        <h3>My Courses</h3>
+                        <p>View your enrolled courses with progress</p>
+                    </a>
+                    <a href="purchase.html" class="option-card">
+                        <div class="icon">🛍️</div>
+                        <h3>Browse Courses</h3>
+                        <p>Explore and enroll in new courses</p>
+                    </a>
+                    <a href="profile.html" class="option-card">
+                        <div class="icon">👤</div>
+                        <h3>My Profile</h3>
+                        <p>View and edit your account settings</p>
+                    </a>
+                </div>
+            </div>
+
+            <div id="adminOptions" style="display: none;">
+                <div class="options-grid">
+                    <a href="admin.html" class="option-card">
+                        <div class="icon">📊</div>
+                        <h3>Admin Dashboard</h3>
+                        <p>Manage users, courses, and view analytics</p>
+                    </a>
+                    <a href="purchase.html" class="option-card">
+                        <div class="icon">📚</div>
+                        <h3>Browse Courses</h3>
+                        <p>View all available courses</p>
+                    </a>
+                    <a href="dashboard.html" class="option-card">
+                        <div class="icon">📈</div>
+                        <h3>My Dashboard</h3>
+                        <p>View your personal statistics</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="quick-actions">
+                <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+                <button class="btn btn-primary" onclick="demoLoginToDashboard()">⚡ Quick Demo → Dashboard</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; color: white; text-align: center;">
+            <p style="font-size: 13px;">
+                💡 <strong>Tip:</strong> You're working offline. All your data is saved locally in your browser and persists even after closing this page.
+            </p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function initLanding() {
+            // Load demo user as default (no login required)
+            const users = JSON.parse(localStorage.getItem('ailearn_users')) || [];
+            const demoUser = users.find(u => u.email === 'admin@ailearnhub.com') || {
+                fullName: 'Demo User',
+                email: 'demo@ailearnhub.com',
+                role: 'student'
+            };
+            const currentUser = demoUser;
+
+            // Display user info
+            document.getElementById('userName').textContent = currentUser.fullName || currentUser.email.split('@')[0];
+            document.getElementById('userEmail').textContent = currentUser.email;
+
+            // Show appropriate options based on role
+            const studentOptions = document.getElementById('studentOptions');
+            const adminOptions = document.getElementById('adminOptions');
+            const roleBadge = document.getElementById('roleBadge');
+
+            if (currentUser.role === 'admin') {
+                adminOptions.style.display = 'block';
+                roleBadge.textContent = '👑 Admin';
+                roleBadge.classList.add('admin');
+            } else {
+                studentOptions.style.display = 'block';
+                roleBadge.textContent = '🎓 Student';
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function demoLoginToDashboard() {
+            // Quick demo login - goes to dashboard
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

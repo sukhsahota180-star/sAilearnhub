@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Fundamentals Course - Learn the basics of Artificial Intelligence, types of AI, and its role in daily life. Start your AI journey today!">
+    <meta name="keywords" content="AI fundamentals, artificial intelligence basics, AI types, machine learning basics">
+    <meta property="og:title" content="AI Fundamentals - AI Learn Hub">
+    <meta property="og:description" content="Learn the building blocks of Artificial Intelligence with our comprehensive fundamentals course.">
+    <meta property="og:type" content="course">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect fill='%2300d4ff' width='200' height='200'/><text x='50%' y='50%' font-size='100' text-anchor='middle' dy='.3em' fill='white' font-family='Arial'>🧠</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300d4ff' width='100' height='100'/><text x='50' y='70' font-size='80' text-anchor='middle' fill='white' font-family='Arial'>🤖</text></svg>">
+    <title>AI Fundamentals - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        body { padding-top: 80px; }
+        .topic-hero { background: linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(0, 20, 40, 0.92)) !important; padding: 120px 20px 80px !important; text-align: center; position: relative; border-bottom: 2px solid rgba(0, 212, 255, 0.3); overflow: hidden; }
+        .topic-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%); animation: pulse 4s ease-in-out infinite alternate; z-index: 0; }
+        @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+        .topic-hero .container { position: relative; z-index: 1; }
+        .topic-hero h1 { font-size: clamp(2rem, 4vw, 3.5rem) !important; color: #00d4ff !important; text-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.2) !important; margin-bottom: 20px; animation: slideDown 0.8s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .topic-hero p { font-size: 1.2rem; color: #e0e0e0 !important; margin: 0 !important; line-height: 1.8; }
+        .content { background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(15, 15, 25, 0.95)); padding: 60px 20px !important; }
+        .topic-content { max-width: 900px; margin: 0 auto; }
+        .topic-content h2 { font-size: 2rem; color: #00d4ff !important; text-shadow: 0 0 20px rgba(0, 212, 255, 0.3) !important; margin: 50px 0 25px !important; padding-bottom: 15px; border-bottom: 2px solid rgba(0, 212, 255, 0.2); position: relative; }
+        .topic-content h2::after { content: ''; position: absolute; bottom: -2px; left: 0; height: 2px; width: 80px; background: linear-gradient(90deg, #00d4ff, #00ff88); box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); }
+        .topic-content h3 { color: #00ff88 !important; text-shadow: 0 0 10px rgba(0, 255, 136, 0.2) !important; font-size: 1.4rem; margin: 20px 0 15px !important; }
+        .topic-content p { color: #d0d0d0 !important; font-size: 1rem; line-height: 1.8 !important; margin: 15px 0 !important; }
+        .topic-content ul, .topic-content ol { color: #d0d0d0 !important; margin: 15px 0 15px 20px !important; }
+        .topic-content li { margin: 10px 0 !important; line-height: 1.6; }
+        .info-card { background: rgba(0, 212, 255, 0.08) !important; border-left: 4px solid #00d4ff !important; border-radius: 10px !important; padding: 25px !important; margin: 30px 0 !important; box-shadow: 0 0 20px rgba(0, 212, 255, 0.1) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; }
+        .info-card:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.25) !important; transform: translateX(5px); }
+        .type-card, .ml-card, .comp-item, .reg-class-card, .fitting-card, .example-card, .use-case-card { background: linear-gradient(135deg, rgba(20, 40, 70, 0.95), rgba(15, 30, 55, 0.95)) !important; border: 1px solid rgba(0, 212, 255, 0.2) !important; border-radius: 15px !important; padding: 30px !important; margin: 20px 0 !important; box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15) !important; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .type-card::before, .ml-card::before, .comp-item::before, .reg-class-card::before, .fitting-card::before, .example-card::before, .use-case-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05)); opacity: 0; transition: opacity 0.3s; z-index: 0; }
+        .type-card:hover::before, .ml-card:hover::before, .comp-item:hover::before, .reg-class-card:hover::before, .fitting-card:hover::before, .example-card:hover::before, .use-case-card:hover::before { opacity: 1; }
+        .type-card:hover, .ml-card:hover, .comp-item:hover, .reg-class-card:hover, .fitting-card:hover, .example-card:hover, .use-case-card:hover { transform: translateY(-8px); box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3) !important; border-color: rgba(0, 212, 255, 0.5) !important; }
+        .type-card > *, .ml-card > *, .comp-item > *, .reg-class-card > *, .fitting-card > *, .example-card > *, .use-case-card > * { position: relative; z-index: 1; }
+        .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .comparison { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 30px 0 !important; }
+        .content-image { border-radius: 15px !important; box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2) !important; border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease; margin: 30px 0 !important; }
+        .content-image:hover { box-shadow: 0 15px 50px rgba(0, 212, 255, 0.35) !important; transform: translateY(-5px); }
+        @media (max-width: 768px) { .topic-hero { padding: 80px 15px 60px !important; } .topic-hero h1 { font-size: 2rem !important; } .topic-content h2 { font-size: 1.5rem; } .topic-content h3 { font-size: 1.1rem; } .ai-types, .ml-types, .reg-class, .fitting-issues, .examples, .use-cases, .challenges, .component-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="Ai..html" style="color: white; text-decoration: none;"><h1>AI Learn Hub</h1></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="Ai..html#home">Home</a></li>
+                <li><a href="Ai..html#about">About</a></li>
+                <li><a href="Ai..html#courses">Courses</a></li>
+                <li><a href="Ai..html#testimonials">Testimonials</a></li>
+                <li><a href="Ai..html#contact">Contact</a></li>
+                <li><a href="../login.html" class="auth-btn login-btn">Login</a></li>
+                <li><a href="../signup.html" class="auth-btn signup-btn">Sign Up</a></li>
+                <li><a href="../admin-panel.html" class="auth-btn admin-btn" title="Admin Panel">👨‍💼 Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="topic-hero ai-fundamentals-bg">
+        <div class="container">
+            <h1><span class="3d-emoji">🤖</span> AI Fundamentals</h1>
+            <p>Discover the building blocks of Artificial Intelligence</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="topic-content">
+                <h2>What is AI?</h2>
+                <p>Artificial Intelligence (AI) is a branch of computer science that aims to create machines capable of performing tasks that typically require human intelligence. These tasks include learning, reasoning, problem-solving, perception, and language understanding.</p>
+                <div class="info-card">
+                    <h3>Key Characteristics of AI:</h3>
+                    <ul>
+                        <li><strong>Learning:</strong> Ability to improve performance through experience</li>
+                        <li><strong>Reasoning:</strong> Drawing conclusions from available information</li>
+                        <li><strong>Problem-solving:</strong> Finding solutions to complex problems</li>
+                        <li><strong>Perception:</strong> Interpreting sensory inputs like vision and speech</li>
+                        <li><strong>Language Understanding:</strong> Comprehending and generating human language</li>
+                    </ul>
+                </div>
+
+                <h2>Types of AI</h2>
+                <div class="ai-image-container">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80" alt="AI Technology Concept" class="content-image">
+                </div>
+                <div class="ai-types">
+                    <div class="type-card">
+                        <h3><span class="3d-emoji">🤖</span> Narrow AI (Weak AI)</h3>
+                        <p>Designed for specific tasks. Most AI systems today fall into this category.</p>
+                        <p><strong>Examples:</strong> Voice assistants (Siri, Alexa), recommendation systems (Netflix), image recognition</p>
+                        <p><strong>Limitations:</strong> Cannot perform tasks outside their programmed scope</p>
+                    </div>
+                    <div class="type-card">
+                        <h3>🧠 General AI (Strong AI)</h3>
+                        <p>Human-level intelligence across all domains. Can learn and apply knowledge universally.</p>
+                        <p><strong>Characteristics:</strong> Self-awareness, consciousness, ability to understand context</p>
+                        <p><strong>Status:</strong> Theoretical concept, not yet achieved</p>
+                    </div>
+                    <div class="type-card">
+                        <h3><span class="3d-emoji">🚀</span> Super AI</h3>
+                        <p>Exceeds human intelligence in all areas. Could potentially solve problems beyond human capability.</p>
+                        <p><strong>Implications:</strong> Could revolutionize science, medicine, and technology</p>
+                        <p><strong>Concerns:</strong> Control and safety challenges</p>
+                    </div>
+                </div>
+
+                <h2>AI vs ML vs Deep Learning</h2>
+                <div class="comparison">
+                    <div class="comp-item">
+                        <h3><span class="3d-emoji">🤖</span> Artificial Intelligence</h3>
+                        <p>The broadest concept. Encompasses any technique that enables computers to mimic human intelligence.</p>
+                        <p><strong>Scope:</strong> Includes rule-based systems, expert systems, and learning algorithms</p>
+                    </div>
+                    <div class="comp-item">
+                        <h3>🧠 Machine Learning</h3>
+                        <p>A subset of AI that focuses on algorithms that can learn from data without being explicitly programmed.</p>
+                        <p><strong>Key Idea:</strong> Instead of hard-coding rules, systems learn patterns from examples</p>
+                        <p><strong>Types:</strong> Supervised, Unsupervised, Reinforcement Learning</p>
+                    </div>
+                    <div class="comp-item">
+                        <h3>🧬 Deep Learning</h3>
+                        <p>A subset of ML that uses neural networks with multiple layers to model complex patterns.</p>
+                        <p><strong>Architecture:</strong> Inspired by the human brain's neural structure</p>
+                        <p><strong>Advantages:</strong> Can handle unstructured data, automatic feature extraction</p>
+                    </div>
+                </div>
+
+                <h2>AI in Daily Life</h2>
+                <div class="daily-life">
+                    <div class="life-item">
+                        <h3><span class="3d-emoji">📱</span> Smartphones</h3>
+                        <p>Voice assistants, camera enhancements, predictive text, facial recognition</p>
+                    </div>
+                    <div class="life-item">
+                        <h3>🚗 Transportation</h3>
+                        <p>Autonomous vehicles, traffic prediction, ride-sharing optimization</p>
+                    </div>
+                    <div class="life-item">
+                        <h3>🏥 Healthcare</h3>
+                        <p>Medical diagnosis, drug discovery, personalized treatment plans</p>
+                    </div>
+                    <div class="life-item">
+                        <h3>💳 Finance</h3>
+                        <p>Fraud detection, algorithmic trading, credit scoring, robo-advisors</p>
+                    </div>
+                    <div class="life-item">
+                        <h3>🏠 Smart Homes</h3>
+                        <p>Voice-controlled devices, energy optimization, security systems</p>
+                    </div>
+                    <div class="life-item">
+                        <h3>🛒 E-commerce</h3>
+                        <p>Product recommendations, dynamic pricing, inventory management</p>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Quick Quiz</h2>
+                    <div class="quiz">
+                        <p><strong>Q1:</strong> Which type of AI is designed for specific tasks?</p>
+                        <p>A) General AI B) Narrow AI C) Super AI</p>
+                        <p><em>Answer: B) Narrow AI</em></p>
+                    </div>
+                    <div class="quiz">
+                        <p><strong>Q2:</strong> What is the main difference between AI and Machine Learning?</p>
+                        <p>A) AI is broader B) ML is broader C) They are the same</p>
+                        <p><em>Answer: A) AI is broader</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Contact Us: Email: Sukhsahota180@gmail.com | Phone: +91 84375-84541 <br> Follow Us: <a href="https://www.facebook.com/profile.php?id=100044796014349&ref=pl_edit_ig_profile_ac">Facebook</a> | <a href="https://www.instagram.com/the.sukh_7854?igsh=cm1oa2ZvMDdoamlr">Instagram</a> | <a href="https://youtube.com/@alienstudiomusic?si=KybFBiusewkhsCaV">YouTube</a> | &copy; 2025 AI Learn Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="Ai.js"></script>
+
+    <nav class="bottom-nav">
+        <a href="Ai..html" class="nav-btn">Home</a>
+        <a href="ai-fundamentals.html" class="nav-btn">AI Fundamentals</a>
+        <a href="machine-learning.html" class="nav-btn">Machine Learning</a>
+        <a href="deep-learning.html" class="nav-btn">Deep Learning</a>
+        <a href="generative-ai.html" class="nav-btn">Generative AI</a>
+        <a href="ai-tools.html" class="nav-btn">AI Tools</a>
+        <a href="ai-projects.html" class="nav-btn">AI Projects</a>
+        <a href="ai-real-world.html" class="nav-btn">AI in Real World</a>
+        <a href="ethics-future-ai.html" class="nav-btn">Ethics & Future</a>
+        <a href="../purchase.html" class="nav-btn">Purchase Courses</a>
+    </nav>
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</body>
+</html>

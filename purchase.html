@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Courses - AI Learn Hub</title>
+    <link rel="stylesheet" href="Ai.css">
+    <style>
+        /* Purchase Page Specific Styles */
+        body {
+            background: #0a0a0a;
+            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=4000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding-top: 80px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Hero Section */
+        .purchase-hero {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(0, 20, 40, 0.92)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=4000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .purchase-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        .purchase-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .purchase-hero h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: #00d4ff;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.2);
+            margin-bottom: 20px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .purchase-hero p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Controls Section */
+        .controls {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            margin-top: -40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group label {
+            color: #00d4ff;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(20, 20, 40, 0.8);
+            color: #00d4ff;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: transparent;
+            color: #00d4ff;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-btn:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #0a0a0a;
+            border-color: transparent;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Course Card */
+        .course-card {
+            background: linear-gradient(135deg, rgba(20, 40, 70, 0.95), rgba(15, 30, 55, 0.95));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .course-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
+        .course-card:hover::after {
+            left: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.35), inset 0 0 20px rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .course-image {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .course-card:hover .course-image::before {
+            opacity: 1;
+        }
+
+        .course-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            width: fit-content;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty.beginner {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.4);
+        }
+
+        .difficulty.intermediate {
+            background: rgba(255, 217, 61, 0.2);
+            color: #ffd93d;
+            border: 1px solid rgba(255, 217, 61, 0.4);
+        }
+
+        .difficulty.advanced {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+        }
+
+        .course-title {
+            color: #00d4ff;
+            margin: 0 0 12px 0;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .course-description {
+            color: #d0d0d0;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .course-meta {
+            color: #00ff88;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-enroll, .btn-view {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-enroll {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #0a0a0a;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-enroll::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn-enroll:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-enroll:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+        }
+
+        .btn-enroll.enrolled {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            cursor: default;
+        }
+
+        .btn-enroll:disabled {
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        .btn-view {
+            background: transparent;
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.05);
+        }
+
+        .btn-view:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Messages */
+        .message {
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
+            border-left: 4px solid;
+            animation: slideDown 0.3s ease-out;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message.success {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border-left-color: #00ff88;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .message.info {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            border-left-color: #00d4ff;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            color: #999;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            max-width: 600px;
+            margin: 60px auto;
+        }
+
+        .empty-state h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 80px 20px;
+            margin-top: 60px;
+            border-top: 2px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .features-section h2 {
+            margin-bottom: 50px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+            transition: all 0.6s;
+            z-index: 0;
+        }
+
+        .feature-card:hover::before {
+            top: -25%;
+            right: -25%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .feature-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-card p {
+            color: #d0d0d0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .course-actions {
+                flex-direction: column;
+            }
+
+            .purchase-hero {
+                padding: 80px 15px 60px;
+            }
+
+            .purchase-hero h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .empty-state {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-badge">🔴 OFFLINE</div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>AI Learn Hub</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="landing.html">Home</a></li>
+                <li><a href="Ai..html">Courses</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="../purchase.html" class="active">Purchase</a></li>
+                <li><a href="../login.html" class="auth-btn login-btn">Login</a></li>
+                <li><a href="../signup.html" class="auth-btn signup-btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="purchase-hero">
+        <div class="hero-content">
+            <h1>🎓 Explore Our Courses</h1>
+            <p>Master AI, Machine Learning, Deep Learning, and cutting-edge technologies with our expert-led courses</p>
+        </div>
+    </section>
+
+    <!-- Controls Section -->
+    <div class="container">
+        <div class="controls">
+            <div class="filter-group">
+                <label>📚 Filter by:</label>
+                <select id="difficultyFilter">
+                    <option value="">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                <button class="filter-btn" onclick="filterCourses('featured')">⭐ Featured</button>
+                <button class="filter-btn" onclick="filterCourses('popular')">🔥 Popular</button>
+            </div>
+        </div>
+
+        <div id="successMessage" class="message success" style="display:none;"></div>
+        <div id="infoMessage" class="message info" style="display:none;"></div>
+
+        <!-- Courses Grid -->
+        <div class="courses-grid" id="coursesGrid">
+            <!-- Courses will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <h3>No courses found</h3>
+            <p>Try adjusting your filters or search terms</p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose Our Courses?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">👨‍🏫</span>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from AI professionals with industry experience</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Hands-On Projects</h3>
+                    <p>Build real-world projects and gain practical skills</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💡</span>
+                    <h3>Latest Technologies</h3>
+                    <p>Stay updated with cutting-edge AI and ML technologies</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Certificates</h3>
+                    <p>Earn recognized certificates upon course completion</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Global Community</h3>
+                    <p>Connect with learners and professionals worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⏱️</span>
+                    <h3>Learn at Your Pace</h3>
+                    <p>Self-paced learning with lifetime course access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Course Data
+        const courses = [
+            { id: 1, title: 'AI Fundamentals', description: 'Learn the basics of AI, types, and its role in daily life.', price: 49, difficulty: 'beginner', category: 'featured', icon: '🤖' },
+            { id: 2, title: 'Machine Learning', description: 'From beginner to advanced ML concepts, algorithms, and applications.', price: 79, difficulty: 'intermediate', category: 'popular', icon: '📊' },
+            { id: 3, title: 'Deep Learning', description: 'Neural networks, CNN, RNN, and real-world use cases.', price: 99, difficulty: 'advanced', category: 'featured', icon: '🧠' },
+            { id: 4, title: 'Generative AI', description: 'ChatGPT, LLMs, prompt engineering, and creative AI tools.', price: 89, difficulty: 'advanced', category: 'popular', icon: '✨' },
+            { id: 5, title: 'AI Tools', description: 'No-coding AI tools for students, creators, designers, and businesses.', price: 39, difficulty: 'beginner', category: 'featured', icon: '🛠️' },
+            { id: 6, title: 'AI Projects', description: 'Build chatbots, classifiers, and other AI projects hands-on.', price: 69, difficulty: 'intermediate', category: 'popular', icon: '🎯' },
+            { id: 7, title: 'AI in Real World', description: 'AI applications in healthcare, finance, education, gaming, and more.', price: 59, difficulty: 'beginner', category: 'featured', icon: '🌍' },
+            { id: 8, title: 'Ethics & Future of AI', description: 'AI risks, ethics, job impacts, and how to stay relevant.', price: 49, difficulty: 'beginner', category: 'popular', icon: '⚖️' },
+        ];
+
+        let filteredCourses = [...courses];
+        let enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCourses();
+            setupEventListeners();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            const difficultyFilter = document.getElementById('difficultyFilter');
+            if (difficultyFilter) {
+                difficultyFilter.addEventListener('change', applyFilters);
+            }
+        }
+
+        // Render Courses
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (!grid) return;
+
+            if (filteredCourses.length === 0) {
+                grid.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            grid.innerHTML = filteredCourses.map(course => {
+                const isEnrolled = enrolledCourses.includes(course.id);
+                return `
+                    <div class="course-card">
+                        <div class="course-image">${course.icon}</div>
+                        <div class="course-content">
+                            <span class="difficulty ${course.difficulty}">${course.difficulty.toUpperCase()}</span>
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-description">${course.description}</p>
+                            <div class="course-meta">
+                                <span>⏱️ 8 weeks</span>
+                                <span>📚 12 modules</span>
+                            </div>
+                            <div class="price">$${course.price.toFixed(2)}</div>
+                            <div class="course-actions">
+                                <button class="btn-enroll ${isEnrolled ? 'enrolled' : ''}" 
+                                        onclick="enrollCourse(${course.id}, '${course.title}')"
+                                        ${isEnrolled ? 'disabled' : ''}>
+                                    ${isEnrolled ? '✓ Enrolled' : 'Enroll Now'}
+                                </button>
+                                <button class="btn-view" onclick="viewCourse('${course.title}')">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter Courses
+        function filterCourses(category) {
+            currentFilter = category;
+            applyFilters();
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Apply Filters
+        function applyFilters() {
+            const difficultySelect = document.getElementById('difficultyFilter');
+            const selectedDifficulty = difficultySelect ? difficultySelect.value : '';
+
+            filteredCourses = courses.filter(course => {
+                const categoryMatch = currentFilter === 'all' || course.category === currentFilter;
+                const difficultyMatch = !selectedDifficulty || course.difficulty === selectedDifficulty;
+                return categoryMatch && difficultyMatch;
+            });
+
+            renderCourses();
+        }
+
+        // Enroll Course
+        function enrollCourse(courseId, courseTitle) {
+            if (!enrolledCourses.includes(courseId)) {
+                enrolledCourses.push(courseId);
+                localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
+
+                // Show success message
+                const successMsg = document.getElementById('successMessage');
+                if (successMsg) {
+                    successMsg.textContent = `✓ Successfully enrolled in "${courseTitle}"! Access your course in the dashboard.`;
+                    successMsg.style.display = 'block';
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 4000);
+                }
+
+                renderCourses();
+            }
+        }
+
+        // View Course Details
+        function viewCourse(courseTitle) {
+            const infoMsg = document.getElementById('infoMessage');
+            if (infoMsg) {
+                infoMsg.textContent = `📚 Course: "${courseTitle}" - Full details coming soon! Enroll to get started.`;
+                infoMsg.style.display = 'block';
+                setTimeout(() => {
+                    infoMsg.style.display = 'none';
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
